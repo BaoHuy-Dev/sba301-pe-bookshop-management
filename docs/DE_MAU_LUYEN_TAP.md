@@ -1,4 +1,4 @@
-# Đề Mẫu Luyện Tập PE - SBA301 (React + Spring Boot)
+﻿# Đề Mẫu Luyện Tập PE - SBA301 (React + Spring Boot)
 
 > 4 đề mẫu đầy đủ với lời giải chi tiết, mỗi đề có component khác nhau để luyện tập toàn diện.
 
@@ -147,43 +147,38 @@ public class Employee {
 
 ### File 1: `src/services/EmployeeService.js`
 
-```javascript
-import axios from "axios";
+<pre><code>import axios from "axios";
 
-const API_URL = "http://localhost:8080/api/employees";
+const API_URL = <span style="color:red">"http://localhost:8080/api/employees"</span>; // Đổi URL: /myapp/shops -&gt; /api/employees
 
-const getAll = () => axios.get(API_URL);
-const getById = (id) => axios.get(`${API_URL}/${id}`);
-const create = (employee) => axios.post(API_URL, employee);
-const deleteEmployee = (id) => axios.delete(`${API_URL}/${id}`);
-const getDepartments = () => axios.get(`${API_URL}/departments`);
+const getAll = () =&gt; axios.get(API_URL);
+const getById = (id) =&gt; axios.get(`${API_URL}/${id}`);
+const create = (<span style="color:red">employee</span>) =&gt; axios.post(API_URL, <span style="color:red">employee</span>); // Đổi tham số: shop -&gt; employee
+const <span style="color:red">deleteEmployee</span> = (id) =&gt; axios.delete(`${API_URL}/${id}`); // Đổi tên hàm: deleteShop -&gt; deleteEmployee
+const <span style="color:red">getDepartments</span> = () =&gt; axios.get(`${API_URL}/<span style="color:red">departments</span>`); // Đổi endpoint: /types -&gt; /departments
 
-export default { getAll, getById, create, deleteEmployee, getDepartments };
-```
+export default { getAll, getById, create, <span style="color:red">deleteEmployee</span>, <span style="color:red">getDepartments</span> };</code></pre>
 
 ### File 2: `src/App.jsx`
 
-```jsx
-import { Routes, Route } from "react-router-dom";
-import EmployeeList from "./components/EmployeeList";
-import EmployeeDetail from "./components/EmployeeDetail";
+<pre><code>import { Routes, Route } from "react-router-dom";
+import <span style="color:red">EmployeeList</span> from "./components/<span style="color:red">EmployeeList</span>"; // Đổi component: ShopList -&gt; EmployeeList
+import <span style="color:red">EmployeeDetail</span> from "./components/<span style="color:red">EmployeeDetail</span>"; // Đổi component: ShopDetail -&gt; EmployeeDetail
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<EmployeeList />} />
-      <Route path="/employee/:id" element={<EmployeeDetail />} />
-    </Routes>
+    &lt;Routes&gt;
+      &lt;Route path="/" element={&lt;<span style="color:red">EmployeeList</span> /&gt;} /&gt;
+      &lt;Route path="<span style="color:red">/employee/:id</span>" element={&lt;<span style="color:red">EmployeeDetail</span> /&gt;} /&gt; {/* Đổi route: /shop/:id -&gt; /employee/:id */}
+    &lt;/Routes&gt;
   );
 }
 
-export default App;
-```
+export default App;</code></pre>
 
 ### File 3: `src/components/EmployeeList.jsx`
 
-```jsx
-import { useState, useEffect } from "react";
+<pre><code>import { useState, useEffect } from &quot;react&quot;;
 import {
   Table,
   Button,
@@ -192,286 +187,285 @@ import {
   Container,
   Row,
   Col,
-} from "react-bootstrap";
-import { Link } from "react-router-dom";
-import EmployeeService from "../services/EmployeeService";
+} from &quot;react-bootstrap&quot;;
+import { Link } from &quot;react-router-dom&quot;;
+import <span style="color:red">EmployeeService</span> from &quot;../services/<span style="color:red">EmployeeService</span>&quot;; 
 
-function EmployeeList() {
-  const [employees, setEmployees] = useState([]);
-  const [departments, setDepartments] = useState([]);
-  const [fullName, setFullName] = useState("");
-  const [age, setAge] = useState("");
-  const [email, setEmail] = useState("");
-  const [department, setDepartment] = useState("");
+function <span style="color:red">EmployeeList</span>() {
+  const [<span style="color:red">employees</span>, <span style="color:red">setEmployees</span>] = useState([]); 
+  const [<span style="color:red">departments</span>, <span style="color:red">setDepartments</span>] = useState([]); 
+  const [<span style="color:red">fullName</span>, <span style="color:red">setFullName</span>] = useState(&quot;&quot;); 
+  const [<span style="color:red">age</span>, <span style="color:red">setAge</span>] = useState(&quot;&quot;); 
+  const [<span style="color:red">email</span>, <span style="color:red">setEmail</span>] = useState(&quot;&quot;); 
+  const [<span style="color:red">department</span>, <span style="color:red">setDepartment</span>] = useState(&quot;&quot;); 
 
   const [showConfirm, setShowConfirm] = useState(false);
   const [deleteTarget, setDeleteTarget] = useState(null);
 
-  useEffect(() => {
-    loadEmployees();
-    loadDepartments();
+  useEffect(() =&gt; {
+    <span style="color:red">loadEmployees</span>();
+    <span style="color:red">loadDepartments</span>();
   }, []);
 
-  const loadEmployees = () => {
-    EmployeeService.getAll().then((res) => setEmployees(res.data));
+  const <span style="color:red">loadEmployees</span> = () =&gt; {
+    <span style="color:red">EmployeeService</span>.getAll().then((res) =&gt; <span style="color:red">setEmployees</span>(res.data));
   };
 
-  const loadDepartments = () => {
-    EmployeeService.getDepartments().then((res) => setDepartments(res.data));
+  const <span style="color:red">loadDepartments</span> = () =&gt; {
+    <span style="color:red">EmployeeService</span>.<span style="color:red">getDepartments</span>().then((res) =&gt; <span style="color:red">setDepartments</span>(res.data));
   };
 
-  const handleAddNew = () => {
-    // Validation
-    if (!fullName.trim()) {
-      alert("Full Name is required");
+  const handleAddNew = () =&gt; {
+    
+    if (!<span style="color:red">fullName</span>.trim()) {
+      alert(&quot;<span style="color:red">Full Name is required</span>&quot;);
       return;
     }
-    if (fullName.trim().length > 80) {
-      alert("Full Name must be at most 80 characters");
+    if (<span style="color:red">fullName</span>.trim().length &gt; 80) {
+      alert(&quot;<span style="color:red">Full Name must be at most 80 characters</span>&quot;);
       return;
     }
-    if (!age) {
-      alert("Age is required");
+    if (!<span style="color:red">age</span>) {
+      alert(&quot;<span style="color:red">Age is required</span>&quot;);
       return;
     }
-    const ageNum = Number(age);
-    if (isNaN(ageNum) || ageNum <= 18 || ageNum >= 65) {
-      alert("Age must be greater than 18 and less than 65");
+    const <span style="color:red">ageNum</span> = Number(<span style="color:red">age</span>);
+    if (isNaN(<span style="color:red">ageNum</span>) || <span style="color:red">ageNum</span> &lt;= 18 || <span style="color:red">ageNum</span> &gt;= 65) {
+      alert(&quot;<span style="color:red">Age must be greater than 18 and less than 65</span>&quot;);
       return;
     }
-    if (!email.trim()) {
-      alert("Email is required");
+    if (!<span style="color:red">email</span>.trim()) {
+      alert(&quot;<span style="color:red">Email is required</span>&quot;);
       return;
     }
-    if (email.trim().length > 150) {
-      alert("Email must be at most 150 characters");
+    if (<span style="color:red">email</span>.trim().length &gt; 150) {
+      alert(&quot;<span style="color:red">Email must be at most 150 characters</span>&quot;);
       return;
     }
-    if (!department) {
-      alert("Department is required");
+    if (!<span style="color:red">department</span>) {
+      alert(&quot;<span style="color:red">Department is required</span>&quot;);
       return;
     }
 
-    const employee = {
-      fullName: fullName.trim(),
-      age: ageNum,
-      email: email.trim(),
-      department,
+    const <span style="color:red">employee</span> = {
+      <span style="color:red">fullName</span>: <span style="color:red">fullName</span>.trim(),
+      <span style="color:red">age</span>: <span style="color:red">ageNum</span>,
+      <span style="color:red">email</span>: <span style="color:red">email</span>.trim(),
+      <span style="color:red">department</span>,
     };
 
-    EmployeeService.create(employee)
-      .then(() => {
-        alert("Created new Employee successfully");
-        loadEmployees();
-        setFullName("");
-        setAge("");
-        setEmail("");
-        setDepartment("");
+    <span style="color:red">EmployeeService</span>.create(<span style="color:red">employee</span>)
+      .then(() =&gt; {
+        alert(&quot;<span style="color:red">Created new Employee successfully</span>&quot;);
+        <span style="color:red">loadEmployees</span>();
+        <span style="color:red">setFullName</span>(&quot;&quot;);
+        <span style="color:red">setAge</span>(&quot;&quot;);
+        <span style="color:red">setEmail</span>(&quot;&quot;);
+        <span style="color:red">setDepartment</span>(&quot;&quot;);
       })
-      .catch((err) => {
-        alert(err.response?.data?.message || "Error creating employee");
+      .catch((err) =&gt; {
+        alert(err.response?.data?.message || &quot;<span style="color:red">Error creating employee</span>&quot;);
       });
   };
 
-  const handleDeleteClick = (emp) => {
+  const handleDeleteClick = (emp) =&gt; {
     setDeleteTarget(emp);
     setShowConfirm(true);
   };
 
-  const handleDeleteConfirm = () => {
-    EmployeeService.deleteEmployee(deleteTarget.id).then(() => {
-      alert("Deleted successfully");
-      loadEmployees();
+  const handleDeleteConfirm = () =&gt; {
+    <span style="color:red">EmployeeService</span>.<span style="color:red">deleteEmployee</span>(deleteTarget.id).then(() =&gt; {
+      alert(&quot;Deleted successfully&quot;);
+      <span style="color:red">loadEmployees</span>();
       setShowConfirm(false);
       setDeleteTarget(null);
     });
   };
 
-  const handleDeleteClose = () => {
+  const handleDeleteClose = () =&gt; {
     setShowConfirm(false);
     setDeleteTarget(null);
   };
 
   return (
-    <Container>
-      <h2 className="mt-3 mb-3">
-        <b>Employee Management</b>
-      </h2>
-      <Form>
-        <Form.Group as={Row} className="mb-2">
-          <Form.Label column sm={2} className="text-end">
+    &lt;Container&gt;
+      &lt;h2 className=&quot;mt-3 mb-3&quot;&gt;
+        &lt;b&gt;<span style="color:red">Employee Management</span>&lt;/b&gt; {/* Đổi tiêu đề */}
+      &lt;/h2&gt;
+      &lt;Form&gt;
+        &lt;Form.Group as={Row} className=&quot;mb-2&quot;&gt;
+          &lt;Form.Label column sm={2} className=&quot;text-end&quot;&gt;
             Full Name:
-          </Form.Label>
-          <Col sm={10}>
-            <Form.Control
-              type="text"
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
+          &lt;/Form.Label&gt;
+          &lt;Col sm={10}&gt;
+            &lt;Form.Control
+              type=&quot;text&quot;
+              value={<span style="color:red">fullName</span>}
+              onChange={(e) =&gt; <span style="color:red">setFullName</span>(e.target.value)}
               maxLength={80}
-            />
-          </Col>
-        </Form.Group>
-        <Form.Group as={Row} className="mb-2">
-          <Form.Label column sm={2} className="text-end">
+            /&gt;
+          &lt;/Col&gt;
+        &lt;/Form.Group&gt;
+        &lt;Form.Group as={Row} className=&quot;mb-2&quot;&gt;
+          &lt;Form.Label column sm={2} className=&quot;text-end&quot;&gt;
             Age:
-          </Form.Label>
-          <Col sm={10}>
-            <Form.Control
-              type="text"
-              value={age}
-              onChange={(e) => setAge(e.target.value)}
+          &lt;/Form.Label&gt;
+          &lt;Col sm={10}&gt;
+            &lt;Form.Control
+              type=&quot;text&quot;
+              value={<span style="color:red">age</span>}
+              onChange={(e) =&gt; <span style="color:red">setAge</span>(e.target.value)}
               maxLength={2}
-            />
-          </Col>
-        </Form.Group>
-        <Form.Group as={Row} className="mb-2">
-          <Form.Label column sm={2} className="text-end">
+            /&gt;
+          &lt;/Col&gt;
+        &lt;/Form.Group&gt;
+        &lt;Form.Group as={Row} className=&quot;mb-2&quot;&gt;
+          &lt;Form.Label column sm={2} className=&quot;text-end&quot;&gt;
             Email:
-          </Form.Label>
-          <Col sm={10}>
-            <Form.Control
-              type="text"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
+          &lt;/Form.Label&gt;
+          &lt;Col sm={10}&gt;
+            &lt;Form.Control
+              type=&quot;text&quot;
+              value={<span style="color:red">email</span>}
+              onChange={(e) =&gt; <span style="color:red">setEmail</span>(e.target.value)}
               maxLength={150}
-            />
-          </Col>
-        </Form.Group>
-        <Form.Group as={Row} className="mb-2">
-          <Form.Label column sm={2} className="text-end">
+            /&gt;
+          &lt;/Col&gt;
+        &lt;/Form.Group&gt;
+        &lt;Form.Group as={Row} className=&quot;mb-2&quot;&gt;
+          &lt;Form.Label column sm={2} className=&quot;text-end&quot;&gt;
             Department:
-          </Form.Label>
-          <Col sm={10}>
-            <Form.Select
-              value={department}
-              onChange={(e) => setDepartment(e.target.value)}
-            >
-              <option value="">-- Select --</option>
-              {departments.map((d) => (
-                <option key={d} value={d}>
+          &lt;/Form.Label&gt;
+          &lt;Col sm={10}&gt;
+            &lt;Form.Select
+              value={<span style="color:red">department</span>}
+              onChange={(e) =&gt; <span style="color:red">setDepartment</span>(e.target.value)}
+            &gt;
+              &lt;option value=&quot;&quot;&gt;-- Select --&lt;/option&gt;
+              {<span style="color:red">departments</span>.map((d) =&gt; (
+                &lt;option key={d} value={d}&gt;
                   {d}
-                </option>
+                &lt;/option&gt;
               ))}
-            </Form.Select>
-          </Col>
-        </Form.Group>
-        <Row className="mb-3">
-          <Col sm={{ span: 10, offset: 2 }}>
-            <Button variant="primary" onClick={handleAddNew}>
+            &lt;/Form.Select&gt;
+          &lt;/Col&gt;
+        &lt;/Form.Group&gt;
+        &lt;Row className=&quot;mb-3&quot;&gt;
+          &lt;Col sm={{ span: 10, offset: 2 }}&gt;
+            &lt;Button variant=&quot;primary&quot; onClick={handleAddNew}&gt;
               Add New
-            </Button>
-          </Col>
-        </Row>
-      </Form>
+            &lt;/Button&gt;
+          &lt;/Col&gt;
+        &lt;/Row&gt;
+      &lt;/Form&gt;
 
-      <h4>
-        <b>Employee List</b>
-      </h4>
-      <Table bordered hover>
-        <thead>
-          <tr>
-            <th># No</th>
-            <th>Full Name</th>
-            <th>Department</th>
-            <th>Email</th>
-            <th>Age</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {employees.map((emp, index) => (
-            <tr key={emp.id}>
-              <td>{String(index + 1).padStart(2, "0")}</td>
-              <td>{emp.fullName}</td>
-              <td>{emp.department}</td>
-              <td>{emp.email}</td>
-              <td>{emp.age}</td>
-              <td>
-                <Button
-                  variant="danger"
-                  size="sm"
-                  onClick={() => handleDeleteClick(emp)}
-                >
+      &lt;h4&gt;
+        &lt;b&gt;<span style="color:red">Employee List</span>&lt;/b&gt; {/* Đổi subtitle */}
+      &lt;/h4&gt;
+      &lt;Table bordered hover&gt;
+        &lt;thead&gt;
+          &lt;tr&gt;
+            &lt;th&gt;# No&lt;/th&gt;
+            &lt;th&gt;<span style="color:red">Full Name</span>&lt;/th&gt;
+            &lt;th&gt;<span style="color:red">Department</span>&lt;/th&gt;
+            &lt;th&gt;<span style="color:red">Email</span>&lt;/th&gt;
+            &lt;th&gt;<span style="color:red">Age</span>&lt;/th&gt;
+            &lt;th&gt;Action&lt;/th&gt;
+          &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+          {<span style="color:red">employees</span>.map((emp, index) =&gt; (
+            &lt;tr key={emp.id}&gt;
+              &lt;td&gt;{String(index + 1).padStart(2, &quot;0&quot;)}&lt;/td&gt;
+              &lt;td&gt;{emp.<span style="color:red">fullName</span>}&lt;/td&gt;
+              &lt;td&gt;{emp.<span style="color:red">department</span>}&lt;/td&gt;
+              &lt;td&gt;{emp.<span style="color:red">email</span>}&lt;/td&gt;
+              &lt;td&gt;{emp.<span style="color:red">age</span>}&lt;/td&gt;
+              &lt;td&gt;
+                &lt;Button
+                  variant=&quot;danger&quot;
+                  size=&quot;sm&quot;
+                  onClick={() =&gt; handleDeleteClick(emp)}
+                &gt;
                   Delete
-                </Button>
-                {" | "}
-                <Link to={`/employee/${emp.id}`}>View</Link>
-              </td>
-            </tr>
+                &lt;/Button&gt;
+                {&quot; | &quot;}
+                &lt;Link to={`<span style="color:red">/employee/</span>${emp.id}`}&gt;View&lt;/Link&gt;{&quot; &quot;}
+                {/* Đổi link: /shop/:id -&gt; <span style="color:red">/employee/</span>:id */}
+              &lt;/td&gt;
+            &lt;/tr&gt;
           ))}
-        </tbody>
-      </Table>
+        &lt;/tbody&gt;
+      &lt;/Table&gt;
 
-      <Modal show={showConfirm} onHide={handleDeleteClose} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>Confirmation</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          Are you sure you want to delete "{deleteTarget?.fullName}"?
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="primary" onClick={handleDeleteConfirm}>
+      &lt;Modal show={showConfirm} onHide={handleDeleteClose} centered&gt;
+        &lt;Modal.Header closeButton&gt;
+          &lt;Modal.Title&gt;Confirmation&lt;/Modal.Title&gt;
+        &lt;/Modal.Header&gt;
+        &lt;Modal.Body&gt;
+          Are you sure you want to delete &quot;{deleteTarget?.<span style="color:red">fullName</span>}&quot;?
+        &lt;/Modal.Body&gt;
+        &lt;Modal.Footer&gt;
+          &lt;Button variant=&quot;primary&quot; onClick={handleDeleteConfirm}&gt;
             Yes
-          </Button>
-          <Button variant="secondary" onClick={handleDeleteClose}>
+          &lt;/Button&gt;
+          &lt;Button variant=&quot;secondary&quot; onClick={handleDeleteClose}&gt;
             Close
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </Container>
+          &lt;/Button&gt;
+        &lt;/Modal.Footer&gt;
+      &lt;/Modal&gt;
+    &lt;/Container&gt;
   );
 }
 
-export default EmployeeList;
-```
+export default <span style="color:red">EmployeeList</span>;
+</code></pre>
 
 ### File 4: `src/components/EmployeeDetail.jsx`
 
-```jsx
-import { useState, useEffect } from "react";
+<pre><code>import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Container, Button } from "react-bootstrap";
-import EmployeeService from "../services/EmployeeService";
+import <span style="color:red">EmployeeService</span> from "../services/<span style="color:red">EmployeeService</span>"; // Đổi service: ShopService -&gt; EmployeeService
 
-function EmployeeDetail() {
+function <span style="color:red">EmployeeDetail</span>() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [employee, setEmployee] = useState(null);
+  const [<span style="color:red">employee, setEmployee</span>] = useState(null); // Đổi state: shop -&gt; employee
 
-  useEffect(() => {
-    EmployeeService.getById(id).then((res) => setEmployee(res.data));
+  useEffect(() =&gt; {
+    <span style="color:red">EmployeeService</span>.getById(id).then((res) =&gt; <span style="color:red">setEmployee</span>(res.data)); // Đổi API gọi detail theo Employee
   }, [id]);
 
-  if (!employee) return <Container className="mt-3">Loading...</Container>;
+  if (!<span style="color:red">employee</span>) return &lt;Container className="mt-3"&gt;Loading...&lt;/Container&gt;;
 
   return (
-    <Container className="mt-3">
-      <h2>
-        <b>VIEW DETAILS</b>
-      </h2>
-      <div className="mt-4 ms-4">
-        <p>
-          <b>Full Name:</b> {employee.fullName}
-        </p>
-        <p>
-          <b>Email:</b> {employee.email}
-        </p>
-        <p>
-          <b>Department:</b> {employee.department}
-        </p>
-        <p>
-          <b>Age:</b> {employee.age}
-        </p>
-      </div>
-      <Button variant="outline-primary" onClick={() => navigate("/")}>
+    &lt;Container className="mt-3"&gt;
+      &lt;h2&gt;
+        &lt;b&gt;VIEW DETAILS&lt;/b&gt;
+      &lt;/h2&gt;
+      &lt;div className="mt-4 ms-4"&gt;
+        &lt;p&gt;
+          &lt;b&gt;<span style="color:red">Full Name</span>:&lt;/b&gt; {employee.<span style="color:red">fullName</span>} {/* Đổi field: name -&gt; fullName */}
+        &lt;/p&gt;
+        &lt;p&gt;
+          &lt;b&gt;<span style="color:red">Email</span>:&lt;/b&gt; {employee.<span style="color:red">email</span>} {/* Đổi field: owner -&gt; email */}
+        &lt;/p&gt;
+        &lt;p&gt;
+          &lt;b&gt;<span style="color:red">Department</span>:&lt;/b&gt; {employee.<span style="color:red">department</span>} {/* Đổi field: type -&gt; department */}
+        &lt;/p&gt;
+        &lt;p&gt;
+          &lt;b&gt;<span style="color:red">Age</span>:&lt;/b&gt; {employee.<span style="color:red">age</span>} {/* Đổi field: openTime -&gt; age */}
+        &lt;/p&gt;
+      &lt;/div&gt;
+      &lt;Button variant="outline-primary" onClick={() =&gt; navigate("/")}&gt;
         Back
-      </Button>
-    </Container>
+      &lt;/Button&gt;
+    &lt;/Container&gt;
   );
 }
 
-export default EmployeeDetail;
-```
+export default <span style="color:red">EmployeeDetail</span>;</code></pre>
 
 ### Điểm cần lưu ý Đề 1:
 
@@ -605,45 +599,40 @@ public class Product {
 
 ### File 1: `src/services/ProductService.js`
 
-```javascript
-import axios from "axios";
+<pre><code>import axios from "axios";
 
-const API_URL = "http://localhost:8080/api/products";
+const API_URL = <span style="color:red">"http://localhost:8080/api/products"</span>;
 
-const getAll = () => axios.get(API_URL);
-const getById = (id) => axios.get(`${API_URL}/${id}`);
-const create = (product) => axios.post(API_URL, product);
-const deleteProduct = (id) => axios.delete(`${API_URL}/${id}`);
-const getCategories = () => axios.get(`${API_URL}/categories`);
+const getAll = () =&gt; axios.get(API_URL);
+const getById = (id) =&gt; axios.get(`${API_URL}/${id}`);
+const create = (<span style="color:red">product</span>) =&gt; axios.post(API_URL, <span style="color:red">product</span>);
+const <span style="color:red">deleteProduct</span> = (id) =&gt; axios.delete(`${API_URL}/${id}`);
+const <span style="color:red">getCategories</span> = () =&gt; axios.get(`${API_URL}/<span style="color:red">categories</span>`);
 
-export default { getAll, getById, create, deleteProduct, getCategories };
-```
+export default { getAll, getById, create, <span style="color:red">deleteProduct</span>, <span style="color:red">getCategories</span> };</code></pre>
 
 ### File 2: `src/App.jsx`
 
-```jsx
-import { Routes, Route } from "react-router-dom";
-import ProductList from "./components/ProductList";
-import ProductDetail from "./components/ProductDetail";
+<pre><code>import { Routes, Route } from "react-router-dom";
+import <span style="color:red">ProductList</span> from "./components/<span style="color:red">ProductList</span>";
+import <span style="color:red">ProductDetail</span> from "./components/<span style="color:red">ProductDetail</span>";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<ProductList />} />
-      <Route path="/product/:id" element={<ProductDetail />} />
-    </Routes>
+    &lt;Routes&gt;
+      &lt;Route path="/" element={&lt;<span style="color:red">ProductList</span> /&gt;} /&gt;
+      &lt;Route path="<span style="color:red">/product/:id</span>" element={&lt;<span style="color:red">ProductDetail</span> /&gt;} /&gt;
+    &lt;/Routes&gt;
   );
 }
 
-export default App;
-```
+export default App;</code></pre>
 
 ### File 3: `src/components/ProductList.jsx`
 
 > **Điểm khác so với BSM**: Có **CheckBox** (`inStock`) và **TextArea** (`description`)
 
-```jsx
-import { useState, useEffect } from "react";
+<pre><code>import { useState, useEffect } from &quot;react&quot;;
 import {
   Table,
   Button,
@@ -652,316 +641,304 @@ import {
   Container,
   Row,
   Col,
-} from "react-bootstrap";
-import { Link } from "react-router-dom";
-import ProductService from "../services/ProductService";
+} from &quot;react-bootstrap&quot;;
+import { Link } from &quot;react-router-dom&quot;;
+import <span style="color:red">ProductService</span> from &quot;../services/<span style="color:red">ProductService</span>&quot;;
 
-function ProductList() {
-  const [products, setProducts] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [productName, setProductName] = useState("");
-  const [price, setPrice] = useState("");
-  const [description, setDescription] = useState(""); // ← MỚI: TextArea
-  const [inStock, setInStock] = useState(false); // ← MỚI: CheckBox (boolean)
-  const [category, setCategory] = useState("");
+function <span style="color:red">ProductList</span>() {
+  const [<span style="color:red">products</span>, <span style="color:red">setProducts</span>] = useState([]);
+  const [<span style="color:red">categories</span>, <span style="color:red">setCategories</span>] = useState([]);
+  const [<span style="color:red">productName</span>, <span style="color:red">setProductName</span>] = useState(&quot;&quot;);
+  const [<span style="color:red">price</span>, <span style="color:red">setPrice</span>] = useState(&quot;&quot;);
+  const [<span style="color:red">description</span>, <span style="color:red">setDescription</span>] = useState(&quot;&quot;); 
+  const [<span style="color:red">inStock</span>, <span style="color:red">setInStock</span>] = useState(false); 
+  const [<span style="color:red">category</span>, <span style="color:red">setCategory</span>] = useState(&quot;&quot;);
 
   const [showConfirm, setShowConfirm] = useState(false);
   const [deleteTarget, setDeleteTarget] = useState(null);
 
-  useEffect(() => {
-    loadProducts();
-    loadCategories();
+  useEffect(() =&gt; {
+    <span style="color:red">loadProducts</span>();
+    <span style="color:red">loadCategories</span>();
   }, []);
 
-  const loadProducts = () => {
-    ProductService.getAll().then((res) => setProducts(res.data));
+  const <span style="color:red">loadProducts</span> = () =&gt; {
+    <span style="color:red">ProductService</span>.getAll().then((res) =&gt; <span style="color:red">setProducts</span>(res.data));
   };
 
-  const loadCategories = () => {
-    ProductService.getCategories().then((res) => setCategories(res.data));
+  const <span style="color:red">loadCategories</span> = () =&gt; {
+    <span style="color:red">ProductService</span>.<span style="color:red">getCategories</span>().then((res) =&gt; <span style="color:red">setCategories</span>(res.data));
   };
 
-  const handleAddNew = () => {
+  const handleAddNew = () =&gt; {
     // Validation
-    if (!productName.trim()) {
-      alert("Product Name is required");
+    if (!<span style="color:red">productName</span>.trim()) {
+      alert(&quot;<span style="color:red">Product Name is required</span>&quot;);
       return;
     }
-    if (productName.trim().length > 100) {
-      alert("Product Name must be at most 100 characters");
+    if (<span style="color:red">productName</span>.trim().length &gt; 100) {
+      alert(&quot;<span style="color:red">Product Name must be at most 100 characters</span>&quot;);
       return;
     }
 
-    if (!price) {
-      alert("Price is required");
+    if (!<span style="color:red">price</span>) {
+      alert(&quot;<span style="color:red">Price is required</span>&quot;);
       return;
     }
-    const priceNum = Number(price);
-    if (isNaN(priceNum) || priceNum <= 0 || priceNum > 99999) {
-      alert("Price must be greater than 0 and at most 99999");
+    const <span style="color:red">priceNum</span> = Number(<span style="color:red">price</span>);
+    if (isNaN(<span style="color:red">priceNum</span>) || <span style="color:red">priceNum</span> &lt;= 0 || <span style="color:red">priceNum</span> &gt; 99999) {
+      alert(&quot;<span style="color:red">Price must be greater than 0 and at most 99999</span>&quot;);
       return;
     }
 
     // Description: KHÔNG bắt buộc, chỉ check maxLength
-    if (description.trim().length > 500) {
-      alert("Description must be at most 500 characters");
+    if (<span style="color:red">description</span>.trim().length &gt; 500) {
+      alert(&quot;<span style="color:red">Description must be at most 500 characters</span>&quot;);
       return;
     }
 
-    if (!category) {
-      alert("Category is required");
+    if (!<span style="color:red">category</span>) {
+      alert(&quot;<span style="color:red">Category is required</span>&quot;);
       return;
     }
 
-    // ★ inStock KHÔNG cần validation (checkbox, mặc định false)
+    
 
-    const product = {
-      productName: productName.trim(),
-      price: priceNum,
-      description: description.trim(),
-      inStock, // ← boolean: true hoặc false
-      category,
+    const <span style="color:red">product</span> = {
+      <span style="color:red">productName</span>: <span style="color:red">productName</span>.trim(),
+      <span style="color:red">price</span>: <span style="color:red">priceNum</span>,
+      <span style="color:red">description</span>: <span style="color:red">description</span>.trim(),
+      <span style="color:red">inStock</span>, 
+      <span style="color:red">category</span>,
     };
 
-    ProductService.create(product)
-      .then(() => {
-        alert("Created new Product successfully");
-        loadProducts();
-        setProductName("");
-        setPrice("");
-        setDescription("");
-        setInStock(false); // ← Reset về false
-        setCategory("");
+    <span style="color:red">ProductService</span>.create(<span style="color:red">product</span>)
+      .then(() =&gt; {
+        alert(&quot;<span style="color:red">Created new Product successfully</span>&quot;);
+        <span style="color:red">loadProducts</span>();
+        <span style="color:red">setProductName</span>(&quot;&quot;);
+        <span style="color:red">setPrice</span>(&quot;&quot;);
+        <span style="color:red">setDescription</span>(&quot;&quot;);
+        <span style="color:red">setInStock</span>(false); 
+        <span style="color:red">setCategory</span>(&quot;&quot;);
       })
-      .catch((err) => {
-        alert(err.response?.data?.message || "Error creating product");
+      .catch((err) =&gt; {
+        alert(err.response?.data?.message || &quot;<span style="color:red">Error creating product</span>&quot;);
       });
   };
 
-  const handleDeleteClick = (product) => {
+  const handleDeleteClick = (product) =&gt; {
     setDeleteTarget(product);
     setShowConfirm(true);
   };
 
-  const handleDeleteConfirm = () => {
-    ProductService.deleteProduct(deleteTarget.id).then(() => {
-      alert("Deleted successfully");
-      loadProducts();
+  const handleDeleteConfirm = () =&gt; {
+    <span style="color:red">ProductService</span>.<span style="color:red">deleteProduct</span>(deleteTarget.id).then(() =&gt; {
+      alert(&quot;Deleted successfully&quot;);
+      <span style="color:red">loadProducts</span>();
       setShowConfirm(false);
       setDeleteTarget(null);
     });
   };
 
-  const handleDeleteClose = () => {
+  const handleDeleteClose = () =&gt; {
     setShowConfirm(false);
     setDeleteTarget(null);
   };
 
   return (
-    <Container>
-      <h2 className="mt-3 mb-3">
-        <b>Product Management</b>
-      </h2>
-      <Form>
+    &lt;Container&gt;
+      &lt;h2 className=&quot;mt-3 mb-3&quot;&gt;
+        &lt;b&gt;<span style="color:red">Product Management</span>&lt;/b&gt;
+      &lt;/h2&gt;
+      &lt;Form&gt;
         {/* TextBox - Product Name */}
-        <Form.Group as={Row} className="mb-2">
-          <Form.Label column sm={2} className="text-end">
+        &lt;Form.Group as={Row} className=&quot;mb-2&quot;&gt;
+          &lt;Form.Label column sm={2} className=&quot;text-end&quot;&gt;
             Product Name:
-          </Form.Label>
-          <Col sm={10}>
-            <Form.Control
-              type="text"
-              value={productName}
-              onChange={(e) => setProductName(e.target.value)}
+          &lt;/Form.Label&gt;
+          &lt;Col sm={10}&gt;
+            &lt;Form.Control
+              type=&quot;text&quot;
+              value={<span style="color:red">productName</span>}
+              onChange={(e) =&gt; <span style="color:red">setProductName</span>(e.target.value)}
               maxLength={100}
-            />
-          </Col>
-        </Form.Group>
+            /&gt;
+          &lt;/Col&gt;
+        &lt;/Form.Group&gt;
 
         {/* TextBox - Price (nhập số) */}
-        <Form.Group as={Row} className="mb-2">
-          <Form.Label column sm={2} className="text-end">
+        &lt;Form.Group as={Row} className=&quot;mb-2&quot;&gt;
+          &lt;Form.Label column sm={2} className=&quot;text-end&quot;&gt;
             Price:
-          </Form.Label>
-          <Col sm={10}>
-            <Form.Control
-              type="text"
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
-            />
-          </Col>
-        </Form.Group>
+          &lt;/Form.Label&gt;
+          &lt;Col sm={10}&gt;
+            &lt;Form.Control
+              type=&quot;text&quot;
+              value={<span style="color:red">price</span>}
+              onChange={(e) =&gt; <span style="color:red">setPrice</span>(e.target.value)}
+            /&gt;
+          &lt;/Col&gt;
+        &lt;/Form.Group&gt;
 
-        {/* ★ TextArea - Description */}
-        <Form.Group as={Row} className="mb-2">
-          <Form.Label column sm={2} className="text-end">
+        {/* ✅ TextArea - Description */}
+        &lt;Form.Group as={Row} className=&quot;mb-2&quot;&gt;
+          &lt;Form.Label column sm={2} className=&quot;text-end&quot;&gt;
             Description:
-          </Form.Label>
-          <Col sm={10}>
-            <Form.Control
-              as="textarea" // ← as="textarea" chứ KHÔNG phải type="textarea"
+          &lt;/Form.Label&gt;
+          &lt;Col sm={10}&gt;
+            &lt;Form.Control
+              as=&quot;textarea&quot; 
               rows={3}
-              value={description}
-              onChange={(e) => setDescription(e.target.value)}
+              value={<span style="color:red">description</span>}
+              onChange={(e) =&gt; <span style="color:red">setDescription</span>(e.target.value)}
               maxLength={500}
-            />
-          </Col>
-        </Form.Group>
+            /&gt;
+          &lt;/Col&gt;
+        &lt;/Form.Group&gt;
 
-        {/* ★ CheckBox - In Stock */}
-        <Form.Group as={Row} className="mb-2">
-          <Col sm={{ span: 10, offset: 2 }}>
-            <Form.Check
-              type="checkbox"
-              label="In Stock"
-              checked={inStock} // ← dùng checked (boolean)
-              onChange={(e) => setInStock(e.target.checked)} // ← dùng e.target.CHECKED
-            />
-          </Col>
-        </Form.Group>
+        {/* ✅ CheckBox - In Stock */}
+        &lt;Form.Group as={Row} className=&quot;mb-2&quot;&gt;
+          &lt;Col sm={{ span: 10, offset: 2 }}&gt;
+            &lt;Form.Check
+              type=&quot;checkbox&quot;
+              label=&quot;In Stock&quot;
+              checked={<span style="color:red">inStock</span>} 
+              onChange={(e) =&gt; <span style="color:red">setInStock</span>(e.target.checked)} 
+            /&gt;
+          &lt;/Col&gt;
+        &lt;/Form.Group&gt;
 
         {/* DropList - Category */}
-        <Form.Group as={Row} className="mb-2">
-          <Form.Label column sm={2} className="text-end">
+        &lt;Form.Group as={Row} className=&quot;mb-2&quot;&gt;
+          &lt;Form.Label column sm={2} className=&quot;text-end&quot;&gt;
             Category:
-          </Form.Label>
-          <Col sm={10}>
-            <Form.Select
-              value={category}
-              onChange={(e) => setCategory(e.target.value)}
-            >
-              <option value="">-- Select --</option>
-              {categories.map((c) => (
-                <option key={c} value={c}>
+          &lt;/Form.Label&gt;
+          &lt;Col sm={10}&gt;
+            &lt;Form.Select
+              value={<span style="color:red">category</span>}
+              onChange={(e) =&gt; <span style="color:red">setCategory</span>(e.target.value)}
+            &gt;
+              &lt;option value=&quot;&quot;&gt;-- Select --&lt;/option&gt;
+              {<span style="color:red">categories</span>.map((c) =&gt; (
+                &lt;option key={c} value={c}&gt;
                   {c}
-                </option>
+                &lt;/option&gt;
               ))}
-            </Form.Select>
-          </Col>
-        </Form.Group>
+            &lt;/Form.Select&gt;
+          &lt;/Col&gt;
+        &lt;/Form.Group&gt;
 
-        <Row className="mb-3">
-          <Col sm={{ span: 10, offset: 2 }}>
-            <Button variant="primary" onClick={handleAddNew}>
+        &lt;Row className=&quot;mb-3&quot;&gt;
+          &lt;Col sm={{ span: 10, offset: 2 }}&gt;
+            &lt;Button variant=&quot;primary&quot; onClick={handleAddNew}&gt;
               Add New
-            </Button>
-          </Col>
-        </Row>
-      </Form>
+            &lt;/Button&gt;
+          &lt;/Col&gt;
+        &lt;/Row&gt;
+      &lt;/Form&gt;
 
-      <h4>
-        <b>Product List</b>
-      </h4>
-      <Table bordered hover>
-        <thead>
-          <tr>
-            <th># No</th>
-            <th>Product Name</th>
-            <th>Category</th>
-            <th>Price</th>
-            <th>In Stock</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {products.map((product, index) => (
-            <tr key={product.id}>
-              <td>{String(index + 1).padStart(2, "0")}</td>
-              <td>{product.productName}</td>
-              <td>{product.category}</td>
-              <td>{product.price}</td>
-              <td>{product.inStock ? "Yes" : "No"}</td>{" "}
-              {/* ← Boolean hiển thị */}
-              <td>
-                <Button
-                  variant="danger"
-                  size="sm"
-                  onClick={() => handleDeleteClick(product)}
-                >
+      &lt;h4&gt;
+        &lt;b&gt;<span style="color:red">Product List</span>&lt;/b&gt;
+      &lt;/h4&gt;
+      &lt;Table bordered hover&gt;
+        &lt;thead&gt;
+          &lt;tr&gt;
+            &lt;th&gt;# No&lt;/th&gt;
+            &lt;th&gt;<span style="color:red">Product Name</span>&lt;/th&gt;
+            &lt;th&gt;<span style="color:red">Category</span>&lt;/th&gt;
+            &lt;th&gt;<span style="color:red">Price</span>&lt;/th&gt;
+            &lt;th&gt;<span style="color:red">In Stock</span>&lt;/th&gt;
+            &lt;th&gt;Action&lt;/th&gt;
+          &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+          {<span style="color:red">products</span>.map((product, index) =&gt; (
+            &lt;tr key={product.id}&gt;
+              &lt;td&gt;{String(index + 1).padStart(2, &quot;0&quot;)}&lt;/td&gt;
+              &lt;td&gt;{product.<span style="color:red">productName</span>}&lt;/td&gt;
+              &lt;td&gt;{product.<span style="color:red">category</span>}&lt;/td&gt;
+              &lt;td&gt;{product.<span style="color:red">price</span>}&lt;/td&gt;
+              &lt;td&gt;{product.<span style="color:red">inStock</span> ? &quot;Yes&quot; : &quot;No&quot;}&lt;/td&gt;{&quot; &quot;}
+              {/* ✅ Boolean hiển thị */}
+              &lt;td&gt;
+                &lt;Button
+                  variant=&quot;danger&quot;
+                  size=&quot;sm&quot;
+                  onClick={() =&gt; handleDeleteClick(product)}
+                &gt;
                   Delete
-                </Button>
-                {" | "}
-                <Link to={`/product/${product.id}`}>View</Link>
-              </td>
-            </tr>
+                &lt;/Button&gt;
+                {&quot; | &quot;}
+                &lt;Link to={`<span style="color:red">/product/</span>${product.id}`}&gt;View&lt;/Link&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
           ))}
-        </tbody>
-      </Table>
+        &lt;/tbody&gt;
+      &lt;/Table&gt;
 
       {/* Modal xác nhận xóa */}
-      <Modal show={showConfirm} onHide={handleDeleteClose} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>Confirmation</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          Are you sure you want to delete "{deleteTarget?.productName}"?
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="primary" onClick={handleDeleteConfirm}>
+      &lt;Modal show={showConfirm} onHide={handleDeleteClose} centered&gt;
+        &lt;Modal.Header closeButton&gt;
+          &lt;Modal.Title&gt;Confirmation&lt;/Modal.Title&gt;
+        &lt;/Modal.Header&gt;
+        &lt;Modal.Body&gt;
+          Are you sure you want to delete &quot;{deleteTarget?.<span style="color:red">productName</span>}&quot;?
+        &lt;/Modal.Body&gt;
+        &lt;Modal.Footer&gt;
+          &lt;Button variant=&quot;primary&quot; onClick={handleDeleteConfirm}&gt;
             Yes
-          </Button>
-          <Button variant="secondary" onClick={handleDeleteClose}>
+          &lt;/Button&gt;
+          &lt;Button variant=&quot;secondary&quot; onClick={handleDeleteClose}&gt;
             Close
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </Container>
+          &lt;/Button&gt;
+        &lt;/Modal.Footer&gt;
+      &lt;/Modal&gt;
+    &lt;/Container&gt;
   );
 }
 
-export default ProductList;
-```
+export default <span style="color:red">ProductList</span>;
+</code></pre>
 
 ### File 4: `src/components/ProductDetail.jsx`
 
-```jsx
-import { useState, useEffect } from "react";
+<pre><code>import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Container, Button } from "react-bootstrap";
-import ProductService from "../services/ProductService";
+import <span style="color:red">ProductService</span> from "../services/<span style="color:red">ProductService</span>";
 
-function ProductDetail() {
+function <span style="color:red">ProductDetail</span>() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [product, setProduct] = useState(null);
+  const [<span style="color:red">product, setProduct</span>] = useState(null);
 
-  useEffect(() => {
-    ProductService.getById(id).then((res) => setProduct(res.data));
+  useEffect(() =&gt; {
+    <span style="color:red">ProductService</span>.getById(id).then((res) =&gt; <span style="color:red">setProduct</span>(res.data));
   }, [id]);
 
-  if (!product) return <Container className="mt-3">Loading...</Container>;
+  if (!<span style="color:red">product</span>) return &lt;Container className="mt-3"&gt;Loading...&lt;/Container&gt;;
 
   return (
-    <Container className="mt-3">
-      <h2>
-        <b>VIEW DETAILS</b>
-      </h2>
-      <div className="mt-4 ms-4">
-        <p>
-          <b>Product Name:</b> {product.productName}
-        </p>
-        <p>
-          <b>Category:</b> {product.category}
-        </p>
-        <p>
-          <b>Price:</b> {product.price}
-        </p>
-        <p>
-          <b>In Stock:</b> {product.inStock ? "Yes" : "No"}
-        </p>
-        <p>
-          <b>Description:</b> {product.description}
-        </p>
-      </div>
-      <Button variant="outline-primary" onClick={() => navigate("/")}>
+    &lt;Container className="mt-3"&gt;
+      &lt;h2&gt;
+        &lt;b&gt;VIEW DETAILS&lt;/b&gt;
+      &lt;/h2&gt;
+      &lt;div className="mt-4 ms-4"&gt;
+        &lt;p&gt;&lt;b&gt;<span style="color:red">Product Name</span>:&lt;/b&gt; {product.<span style="color:red">productName</span>}&lt;/p&gt;
+        &lt;p&gt;&lt;b&gt;<span style="color:red">Category</span>:&lt;/b&gt; {product.<span style="color:red">category</span>}&lt;/p&gt;
+        &lt;p&gt;&lt;b&gt;<span style="color:red">Price</span>:&lt;/b&gt; {product.<span style="color:red">price</span>}&lt;/p&gt;
+        &lt;p&gt;&lt;b&gt;<span style="color:red">In Stock</span>:&lt;/b&gt; {product.<span style="color:red">inStock</span> ? "Yes" : "No"}&lt;/p&gt;
+        &lt;p&gt;&lt;b&gt;<span style="color:red">Description</span>:&lt;/b&gt; {product.<span style="color:red">description</span>}&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;Button variant="outline-primary" onClick={() =&gt; navigate("/")}&gt;
         Back
-      </Button>
-    </Container>
+      &lt;/Button&gt;
+    &lt;/Container&gt;
   );
 }
 
-export default ProductDetail;
-```
+export default <span style="color:red">ProductDetail</span>;</code></pre>
 
 ### Điểm cần lưu ý Đề 2:
 
@@ -1104,45 +1081,40 @@ public class Student {
 
 ### File 1: `src/services/StudentService.js`
 
-```javascript
-import axios from "axios";
+<pre><code>import axios from "axios";
 
-const API_URL = "http://localhost:8080/api/students";
+const API_URL = <span style="color:red">"http://localhost:8080/api/students"</span>;
 
-const getAll = () => axios.get(API_URL);
-const getById = (id) => axios.get(`${API_URL}/${id}`);
-const create = (student) => axios.post(API_URL, student);
-const deleteStudent = (id) => axios.delete(`${API_URL}/${id}`);
-const getMajors = () => axios.get(`${API_URL}/majors`);
+const getAll = () =&gt; axios.get(API_URL);
+const getById = (id) =&gt; axios.get(`${API_URL}/${id}`);
+const create = (<span style="color:red">student</span>) =&gt; axios.post(API_URL, <span style="color:red">student</span>);
+const <span style="color:red">deleteStudent</span> = (id) =&gt; axios.delete(`${API_URL}/${id}`);
+const <span style="color:red">getMajors</span> = () =&gt; axios.get(`${API_URL}/<span style="color:red">majors</span>`);
 
-export default { getAll, getById, create, deleteStudent, getMajors };
-```
+export default { getAll, getById, create, <span style="color:red">deleteStudent</span>, <span style="color:red">getMajors</span> };</code></pre>
 
 ### File 2: `src/App.jsx`
 
-```jsx
-import { Routes, Route } from "react-router-dom";
-import StudentList from "./components/StudentList";
-import StudentDetail from "./components/StudentDetail";
+<pre><code>import { Routes, Route } from "react-router-dom";
+import <span style="color:red">StudentList</span> from "./components/<span style="color:red">StudentList</span>";
+import <span style="color:red">StudentDetail</span> from "./components/<span style="color:red">StudentDetail</span>";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<StudentList />} />
-      <Route path="/student/:id" element={<StudentDetail />} />
-    </Routes>
+    &lt;Routes&gt;
+      &lt;Route path="/" element={&lt;<span style="color:red">StudentList</span> /&gt;} /&gt;
+      &lt;Route path="<span style="color:red">/student/:id</span>" element={&lt;<span style="color:red">StudentDetail</span> /&gt;} /&gt;
+    &lt;/Routes&gt;
   );
 }
 
-export default App;
-```
+export default App;</code></pre>
 
 ### File 3: `src/components/StudentList.jsx`
 
 > **Điểm khác so với BSM**: Có **Radio Button** (`gender`), **Date Picker** (`birthDate`), **Image** (`avatarUrl`)
 
-```jsx
-import { useState, useEffect } from "react";
+<pre><code>import { useState, useEffect } from &quot;react&quot;;
 import {
   Table,
   Button,
@@ -1151,358 +1123,348 @@ import {
   Container,
   Row,
   Col,
-} from "react-bootstrap";
-import { Link } from "react-router-dom";
-import StudentService from "../services/StudentService";
+} from &quot;react-bootstrap&quot;;
+import { Link } from &quot;react-router-dom&quot;;
+import <span style="color:red">StudentService</span> from &quot;../services/<span style="color:red">StudentService</span>&quot;;
 
-function StudentList() {
-  const [students, setStudents] = useState([]);
-  const [majors, setMajors] = useState([]);
-  const [studentName, setStudentName] = useState("");
-  const [birthDate, setBirthDate] = useState(""); // ← MỚI: Date
-  const [gender, setGender] = useState(""); // ← MỚI: Radio
-  const [major, setMajor] = useState("");
-  const [avatarUrl, setAvatarUrl] = useState(""); // ← MỚI: Image URL
+function <span style="color:red">StudentList</span>() {
+  const [<span style="color:red">students</span>, <span style="color:red">setStudents</span>] = useState([]);
+  const [<span style="color:red">majors</span>, <span style="color:red">setMajors</span>] = useState([]);
+  const [<span style="color:red">studentName</span>, <span style="color:red">setStudentName</span>] = useState(&quot;&quot;);
+  const [<span style="color:red">birthDate</span>, <span style="color:red">setBirthDate</span>] = useState(&quot;&quot;); 
+  const [<span style="color:red">gender</span>, <span style="color:red">setGender</span>] = useState(&quot;&quot;); 
+  const [<span style="color:red">major</span>, <span style="color:red">setMajor</span>] = useState(&quot;&quot;);
+  const [<span style="color:red">avatarUrl</span>, <span style="color:red">setAvatarUrl</span>] = useState(&quot;&quot;); 
 
   const [showConfirm, setShowConfirm] = useState(false);
   const [deleteTarget, setDeleteTarget] = useState(null);
 
-  useEffect(() => {
-    loadStudents();
-    loadMajors();
+  useEffect(() =&gt; {
+    <span style="color:red">loadStudents</span>();
+    <span style="color:red">loadMajors</span>();
   }, []);
 
-  const loadStudents = () => {
-    StudentService.getAll().then((res) => setStudents(res.data));
+  const <span style="color:red">loadStudents</span> = () =&gt; {
+    <span style="color:red">StudentService</span>.getAll().then((res) =&gt; <span style="color:red">setStudents</span>(res.data));
   };
 
-  const loadMajors = () => {
-    StudentService.getMajors().then((res) => setMajors(res.data));
+  const <span style="color:red">loadMajors</span> = () =&gt; {
+    <span style="color:red">StudentService</span>.<span style="color:red">getMajors</span>().then((res) =&gt; <span style="color:red">setMajors</span>(res.data));
   };
 
-  const handleAddNew = () => {
+  const handleAddNew = () =&gt; {
     // Validation
-    if (!studentName.trim()) {
-      alert("Student Name is required");
+    if (!<span style="color:red">studentName</span>.trim()) {
+      alert(&quot;<span style="color:red">Student Name is required</span>&quot;);
       return;
     }
-    if (studentName.trim().length > 100) {
-      alert("Student Name must be at most 100 characters");
+    if (<span style="color:red">studentName</span>.trim().length &gt; 100) {
+      alert(&quot;<span style="color:red">Student Name must be at most 100 characters</span>&quot;);
       return;
     }
 
-    // ★ Date validation
-    if (!birthDate) {
-      alert("Birth Date is required");
+    
+    if (!<span style="color:red">birthDate</span>) {
+      alert(&quot;<span style="color:red">Birth Date is required</span>&quot;);
       return;
     }
-    const selectedDate = new Date(birthDate);
+    const selectedDate = new Date(<span style="color:red">birthDate</span>);
     const today = new Date();
     today.setHours(0, 0, 0, 0); // Reset giờ để so sánh chính xác
-    if (selectedDate > today) {
-      alert("Birth Date cannot be in the future");
+    if (selectedDate &gt; today) {
+      alert(&quot;<span style="color:red">Birth Date cannot be in the future</span>&quot;);
       return;
     }
 
-    // ★ Radio validation
-    if (!gender) {
-      alert("Gender is required");
+    
+    if (!<span style="color:red">gender</span>) {
+      alert(&quot;<span style="color:red">Gender is required</span>&quot;);
       return;
     }
 
-    if (!major) {
-      alert("Major is required");
+    if (!<span style="color:red">major</span>) {
+      alert(&quot;<span style="color:red">Major is required</span>&quot;);
       return;
     }
 
-    // avatarUrl: KHÔNG bắt buộc
+    // <span style="color:red">avatarUrl</span>: KHÔNG bắt buộc
 
-    const student = {
-      studentName: studentName.trim(),
-      birthDate, // Format: "2000-05-15" (yyyy-MM-dd)
-      gender, // "Male" hoặc "Female"
-      major,
-      avatarUrl: avatarUrl.trim(),
+    const <span style="color:red">student</span> = {
+      <span style="color:red">studentName</span>: <span style="color:red">studentName</span>.trim(),
+      <span style="color:red">birthDate</span>, // Format: &quot;2000-05-15&quot; (yyyy-MM-dd)
+      <span style="color:red">gender</span>, // &quot;Male&quot; hoặc &quot;Female&quot;
+      <span style="color:red">major</span>,
+      <span style="color:red">avatarUrl</span>: <span style="color:red">avatarUrl</span>.trim(),
     };
 
-    StudentService.create(student)
-      .then(() => {
-        alert("Created new Student successfully");
-        loadStudents();
-        setStudentName("");
-        setBirthDate("");
-        setGender(""); // ← Reset radio
-        setMajor("");
-        setAvatarUrl("");
+    <span style="color:red">StudentService</span>.create(<span style="color:red">student</span>)
+      .then(() =&gt; {
+        alert(&quot;<span style="color:red">Created new Student successfully</span>&quot;);
+        <span style="color:red">loadStudents</span>();
+        <span style="color:red">setStudentName</span>(&quot;&quot;);
+        <span style="color:red">setBirthDate</span>(&quot;&quot;);
+        <span style="color:red">setGender</span>(&quot;&quot;); 
+        <span style="color:red">setMajor</span>(&quot;&quot;);
+        <span style="color:red">setAvatarUrl</span>(&quot;&quot;);
       })
-      .catch((err) => {
-        alert(err.response?.data?.message || "Error creating student");
+      .catch((err) =&gt; {
+        alert(err.response?.data?.message || &quot;<span style="color:red">Error creating student</span>&quot;);
       });
   };
 
-  const handleDeleteClick = (student) => {
+  const handleDeleteClick = (student) =&gt; {
     setDeleteTarget(student);
     setShowConfirm(true);
   };
 
-  const handleDeleteConfirm = () => {
-    StudentService.deleteStudent(deleteTarget.id).then(() => {
-      alert("Deleted successfully");
-      loadStudents();
+  const handleDeleteConfirm = () =&gt; {
+    <span style="color:red">StudentService</span>.<span style="color:red">deleteStudent</span>(deleteTarget.id).then(() =&gt; {
+      alert(&quot;Deleted successfully&quot;);
+      <span style="color:red">loadStudents</span>();
       setShowConfirm(false);
       setDeleteTarget(null);
     });
   };
 
-  const handleDeleteClose = () => {
+  const handleDeleteClose = () =&gt; {
     setShowConfirm(false);
     setDeleteTarget(null);
   };
 
   return (
-    <Container>
-      <h2 className="mt-3 mb-3">
-        <b>Student Management</b>
-      </h2>
-      <Form>
+    &lt;Container&gt;
+      &lt;h2 className=&quot;mt-3 mb-3&quot;&gt;
+        &lt;b&gt;<span style="color:red">Student Management</span>&lt;/b&gt;
+      &lt;/h2&gt;
+      &lt;Form&gt;
         {/* TextBox - Student Name */}
-        <Form.Group as={Row} className="mb-2">
-          <Form.Label column sm={2} className="text-end">
+        &lt;Form.Group as={Row} className=&quot;mb-2&quot;&gt;
+          &lt;Form.Label column sm={2} className=&quot;text-end&quot;&gt;
             Student Name:
-          </Form.Label>
-          <Col sm={10}>
-            <Form.Control
-              type="text"
-              value={studentName}
-              onChange={(e) => setStudentName(e.target.value)}
+          &lt;/Form.Label&gt;
+          &lt;Col sm={10}&gt;
+            &lt;Form.Control
+              type=&quot;text&quot;
+              value={<span style="color:red">studentName</span>}
+              onChange={(e) =&gt; <span style="color:red">setStudentName</span>(e.target.value)}
               maxLength={100}
-            />
-          </Col>
-        </Form.Group>
+            /&gt;
+          &lt;/Col&gt;
+        &lt;/Form.Group&gt;
 
-        {/* ★ Date Picker - Birth Date */}
-        <Form.Group as={Row} className="mb-2">
-          <Form.Label column sm={2} className="text-end">
+        {/* ✅ Date Picker - Birth Date */}
+        &lt;Form.Group as={Row} className=&quot;mb-2&quot;&gt;
+          &lt;Form.Label column sm={2} className=&quot;text-end&quot;&gt;
             Birth Date:
-          </Form.Label>
-          <Col sm={10}>
-            <Form.Control
-              type="date" // ← type="date"
-              value={birthDate}
-              onChange={(e) => setBirthDate(e.target.value)}
-            />
-          </Col>
-        </Form.Group>
+          &lt;/Form.Label&gt;
+          &lt;Col sm={10}&gt;
+            &lt;Form.Control
+              type=&quot;date&quot; 
+              value={<span style="color:red">birthDate</span>}
+              onChange={(e) =&gt; <span style="color:red">setBirthDate</span>(e.target.value)}
+            /&gt;
+          &lt;/Col&gt;
+        &lt;/Form.Group&gt;
 
-        {/* ★ Radio Button - Gender */}
-        <Form.Group as={Row} className="mb-2">
-          <Form.Label column sm={2} className="text-end">
+        {/* ✅ Radio Button - Gender */}
+        &lt;Form.Group as={Row} className=&quot;mb-2&quot;&gt;
+          &lt;Form.Label column sm={2} className=&quot;text-end&quot;&gt;
             Gender:
-          </Form.Label>
-          <Col sm={10}>
-            <Form.Check
-              inline // ← Nằm ngang
-              type="radio" // ← type="radio"
-              label="Male"
-              name="gender" // ← Cùng name = cùng nhóm
-              value="Male"
-              checked={gender === "Male"} // ← So sánh với state
-              onChange={(e) => setGender(e.target.value)} // ← Dùng .value (KHÁC checkbox)
-            />
-            <Form.Check
+          &lt;/Form.Label&gt;
+          &lt;Col sm={10}&gt;
+            &lt;Form.Check
+              inline 
+              type=&quot;radio&quot; 
+              label=&quot;Male&quot;
+              name=&quot;<span style="color:red">gender</span>&quot; 
+              value=&quot;Male&quot;
+              checked={<span style="color:red">gender</span> === &quot;Male&quot;} 
+              onChange={(e) =&gt; <span style="color:red">setGender</span>(e.target.value)} 
+            /&gt;
+            &lt;Form.Check
               inline
-              type="radio"
-              label="Female"
-              name="gender" // ← Cùng name "gender"
-              value="Female"
-              checked={gender === "Female"}
-              onChange={(e) => setGender(e.target.value)}
-            />
-          </Col>
-        </Form.Group>
+              type=&quot;radio&quot;
+              label=&quot;Female&quot;
+              name=&quot;<span style="color:red">gender</span>&quot; 
+              value=&quot;Female&quot;
+              checked={<span style="color:red">gender</span> === &quot;Female&quot;}
+              onChange={(e) =&gt; <span style="color:red">setGender</span>(e.target.value)}
+            /&gt;
+          &lt;/Col&gt;
+        &lt;/Form.Group&gt;
 
         {/* DropList - Major */}
-        <Form.Group as={Row} className="mb-2">
-          <Form.Label column sm={2} className="text-end">
+        &lt;Form.Group as={Row} className=&quot;mb-2&quot;&gt;
+          &lt;Form.Label column sm={2} className=&quot;text-end&quot;&gt;
             Major:
-          </Form.Label>
-          <Col sm={10}>
-            <Form.Select
-              value={major}
-              onChange={(e) => setMajor(e.target.value)}
-            >
-              <option value="">-- Select --</option>
-              {majors.map((m) => (
-                <option key={m} value={m}>
+          &lt;/Form.Label&gt;
+          &lt;Col sm={10}&gt;
+            &lt;Form.Select
+              value={<span style="color:red">major</span>}
+              onChange={(e) =&gt; <span style="color:red">setMajor</span>(e.target.value)}
+            &gt;
+              &lt;option value=&quot;&quot;&gt;-- Select --&lt;/option&gt;
+              {<span style="color:red">majors</span>.map((m) =&gt; (
+                &lt;option key={m} value={m}&gt;
                   {m}
-                </option>
+                &lt;/option&gt;
               ))}
-            </Form.Select>
-          </Col>
-        </Form.Group>
+            &lt;/Form.Select&gt;
+          &lt;/Col&gt;
+        &lt;/Form.Group&gt;
 
         {/* TextBox - Avatar URL (không bắt buộc) */}
-        <Form.Group as={Row} className="mb-2">
-          <Form.Label column sm={2} className="text-end">
+        &lt;Form.Group as={Row} className=&quot;mb-2&quot;&gt;
+          &lt;Form.Label column sm={2} className=&quot;text-end&quot;&gt;
             Avatar URL:
-          </Form.Label>
-          <Col sm={10}>
-            <Form.Control
-              type="text"
-              value={avatarUrl}
-              onChange={(e) => setAvatarUrl(e.target.value)}
-              placeholder="https://example.com/image.jpg"
-            />
-          </Col>
-        </Form.Group>
+          &lt;/Form.Label&gt;
+          &lt;Col sm={10}&gt;
+            &lt;Form.Control
+              type=&quot;text&quot;
+              value={<span style="color:red">avatarUrl</span>}
+              onChange={(e) =&gt; <span style="color:red">setAvatarUrl</span>(e.target.value)}
+              placeholder=&quot;https://example.com/image.jpg&quot;
+            /&gt;
+          &lt;/Col&gt;
+        &lt;/Form.Group&gt;
 
-        <Row className="mb-3">
-          <Col sm={{ span: 10, offset: 2 }}>
-            <Button variant="primary" onClick={handleAddNew}>
+        &lt;Row className=&quot;mb-3&quot;&gt;
+          &lt;Col sm={{ span: 10, offset: 2 }}&gt;
+            &lt;Button variant=&quot;primary&quot; onClick={handleAddNew}&gt;
               Add New
-            </Button>
-          </Col>
-        </Row>
-      </Form>
+            &lt;/Button&gt;
+          &lt;/Col&gt;
+        &lt;/Row&gt;
+      &lt;/Form&gt;
 
-      <h4>
-        <b>Student List</b>
-      </h4>
-      <Table bordered hover>
-        <thead>
-          <tr>
-            <th># No</th>
-            <th>Avatar</th>
-            <th>Student Name</th>
-            <th>Gender</th>
-            <th>Major</th>
-            <th>Birth Date</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {students.map((stu, index) => (
-            <tr key={stu.id}>
-              <td>{String(index + 1).padStart(2, "0")}</td>
-              {/* ★ Image trong table */}
-              <td>
-                {stu.avatarUrl ? (
-                  <img
-                    src={stu.avatarUrl}
-                    alt={stu.studentName}
+      &lt;h4&gt;
+        &lt;b&gt;<span style="color:red">Student List</span>&lt;/b&gt;
+      &lt;/h4&gt;
+      &lt;Table bordered hover&gt;
+        &lt;thead&gt;
+          &lt;tr&gt;
+            &lt;th&gt;# No&lt;/th&gt;
+            &lt;th&gt;<span style="color:red">Avatar</span>&lt;/th&gt;
+            &lt;th&gt;<span style="color:red">Student Name</span>&lt;/th&gt;
+            &lt;th&gt;<span style="color:red">Gender</span>&lt;/th&gt;
+            &lt;th&gt;<span style="color:red">Major</span>&lt;/th&gt;
+            &lt;th&gt;<span style="color:red">Birth Date</span>&lt;/th&gt;
+            &lt;th&gt;Action&lt;/th&gt;
+          &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+          {<span style="color:red">students</span>.map((stu, index) =&gt; (
+            &lt;tr key={stu.id}&gt;
+              &lt;td&gt;{String(index + 1).padStart(2, &quot;0&quot;)}&lt;/td&gt;
+              {/* ✅ Image trong table */}
+              &lt;td&gt;
+                {stu.<span style="color:red">avatarUrl</span> ? (
+                  &lt;img
+                    src={stu.<span style="color:red">avatarUrl</span>}
+                    alt={stu.<span style="color:red">studentName</span>}
                     width={50}
                     height={50}
-                    style={{ objectFit: "cover", borderRadius: "50%" }}
-                  />
+                    style={{ objectFit: &quot;cover&quot;, borderRadius: &quot;50%&quot; }}
+                  /&gt;
                 ) : (
-                  "N/A"
+                  &quot;N/A&quot;
                 )}
-              </td>
-              <td>{stu.studentName}</td>
-              <td>{stu.gender}</td>
-              <td>{stu.major}</td>
-              <td>{stu.birthDate}</td>
-              <td>
-                <Button
-                  variant="danger"
-                  size="sm"
-                  onClick={() => handleDeleteClick(stu)}
-                >
+              &lt;/td&gt;
+              &lt;td&gt;{stu.<span style="color:red">studentName</span>}&lt;/td&gt;
+              &lt;td&gt;{stu.<span style="color:red">gender</span>}&lt;/td&gt;
+              &lt;td&gt;{stu.<span style="color:red">major</span>}&lt;/td&gt;
+              &lt;td&gt;{stu.<span style="color:red">birthDate</span>}&lt;/td&gt;
+              &lt;td&gt;
+                &lt;Button
+                  variant=&quot;danger&quot;
+                  size=&quot;sm&quot;
+                  onClick={() =&gt; handleDeleteClick(stu)}
+                &gt;
                   Delete
-                </Button>
-                {" | "}
-                <Link to={`/student/${stu.id}`}>View</Link>
-              </td>
-            </tr>
+                &lt;/Button&gt;
+                {&quot; | &quot;}
+                &lt;Link to={`<span style="color:red">/student/</span>${stu.id}`}&gt;View&lt;/Link&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
           ))}
-        </tbody>
-      </Table>
+        &lt;/tbody&gt;
+      &lt;/Table&gt;
 
       {/* Modal */}
-      <Modal show={showConfirm} onHide={handleDeleteClose} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>Confirmation</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          Are you sure you want to delete "{deleteTarget?.studentName}"?
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="primary" onClick={handleDeleteConfirm}>
+      &lt;Modal show={showConfirm} onHide={handleDeleteClose} centered&gt;
+        &lt;Modal.Header closeButton&gt;
+          &lt;Modal.Title&gt;Confirmation&lt;/Modal.Title&gt;
+        &lt;/Modal.Header&gt;
+        &lt;Modal.Body&gt;
+          Are you sure you want to delete &quot;{deleteTarget?.<span style="color:red">studentName</span>}&quot;?
+        &lt;/Modal.Body&gt;
+        &lt;Modal.Footer&gt;
+          &lt;Button variant=&quot;primary&quot; onClick={handleDeleteConfirm}&gt;
             Yes
-          </Button>
-          <Button variant="secondary" onClick={handleDeleteClose}>
+          &lt;/Button&gt;
+          &lt;Button variant=&quot;secondary&quot; onClick={handleDeleteClose}&gt;
             Close
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </Container>
+          &lt;/Button&gt;
+        &lt;/Modal.Footer&gt;
+      &lt;/Modal&gt;
+    &lt;/Container&gt;
   );
 }
 
-export default StudentList;
-```
+export default <span style="color:red">StudentList</span>;
+</code></pre>
 
 ### File 4: `src/components/StudentDetail.jsx`
 
-```jsx
-import { useState, useEffect } from "react";
+<pre><code>import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Container, Button } from "react-bootstrap";
-import StudentService from "../services/StudentService";
+import <span style="color:red">StudentService</span> from "../services/<span style="color:red">StudentService</span>";
 
-function StudentDetail() {
+function <span style="color:red">StudentDetail</span>() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [student, setStudent] = useState(null);
+  const [<span style="color:red">student, setStudent</span>] = useState(null);
 
-  useEffect(() => {
-    StudentService.getById(id).then((res) => setStudent(res.data));
+  useEffect(() =&gt; {
+    <span style="color:red">StudentService</span>.getById(id).then((res) =&gt; <span style="color:red">setStudent</span>(res.data));
   }, [id]);
 
-  if (!student) return <Container className="mt-3">Loading...</Container>;
+  if (!<span style="color:red">student</span>) return &lt;Container className="mt-3"&gt;Loading...&lt;/Container&gt;;
 
   return (
-    <Container className="mt-3">
-      <h2>
-        <b>VIEW DETAILS</b>
-      </h2>
-      <div className="mt-4 ms-4">
+    &lt;Container className="mt-3"&gt;
+      &lt;h2&gt;
+        &lt;b&gt;VIEW DETAILS&lt;/b&gt;
+      &lt;/h2&gt;
+      &lt;div className="mt-4 ms-4"&gt;
         {/* ★ Image trong detail */}
-        {student.avatarUrl && (
-          <div className="mb-3">
-            <img
-              src={student.avatarUrl}
-              alt={student.studentName}
+        {student.<span style="color:red">avatarUrl</span> &amp;&amp; (
+          &lt;div className="mb-3"&gt;
+            &lt;img
+              src={student.<span style="color:red">avatarUrl</span>}
+              alt={student.<span style="color:red">studentName</span>}
               style={{
                 maxWidth: "200px",
                 maxHeight: "200px",
                 borderRadius: "8px",
               }}
-            />
-          </div>
+            /&gt;
+          &lt;/div&gt;
         )}
-        <p>
-          <b>Student Name:</b> {student.studentName}
-        </p>
-        <p>
-          <b>Gender:</b> {student.gender}
-        </p>
-        <p>
-          <b>Major:</b> {student.major}
-        </p>
-        <p>
-          <b>Birth Date:</b> {student.birthDate}
-        </p>
-      </div>
-      <Button variant="outline-primary" onClick={() => navigate("/")}>
+        &lt;p&gt;&lt;b&gt;<span style="color:red">Student Name</span>:&lt;/b&gt; {student.<span style="color:red">studentName</span>}&lt;/p&gt;
+        &lt;p&gt;&lt;b&gt;<span style="color:red">Gender</span>:&lt;/b&gt; {student.<span style="color:red">gender</span>}&lt;/p&gt;
+        &lt;p&gt;&lt;b&gt;<span style="color:red">Major</span>:&lt;/b&gt; {student.<span style="color:red">major</span>}&lt;/p&gt;
+        &lt;p&gt;&lt;b&gt;<span style="color:red">Birth Date</span>:&lt;/b&gt; {student.<span style="color:red">birthDate</span>}&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;Button variant="outline-primary" onClick={() =&gt; navigate("/")}&gt;
         Back
-      </Button>
-    </Container>
+      &lt;/Button&gt;
+    &lt;/Container&gt;
   );
 }
 
-export default StudentDetail;
-```
+export default <span style="color:red">StudentDetail</span>;</code></pre>
 
 ### Điểm cần lưu ý Đề 3:
 
@@ -1645,46 +1607,41 @@ public class Course {
 
 ### File 1: `src/services/CourseService.js`
 
-```javascript
-import axios from "axios";
+<pre><code>import axios from "axios";
 
-const API_URL = "http://localhost:8080/api/courses";
+const API_URL = <span style="color:red">"http://localhost:8080/api/courses"</span>;
 
-const getAll = () => axios.get(API_URL);
-const getById = (id) => axios.get(`${API_URL}/${id}`);
-const create = (course) => axios.post(API_URL, course);
-const update = (id, course) => axios.put(`${API_URL}/${id}`, course); // ← MỚI: PUT
-const deleteCourse = (id) => axios.delete(`${API_URL}/${id}`);
-const getLevels = () => axios.get(`${API_URL}/levels`);
+const getAll = () =&gt; axios.get(API_URL);
+const getById = (id) =&gt; axios.get(`${API_URL}/${id}`);
+const create = (<span style="color:red">course</span>) =&gt; axios.post(API_URL, <span style="color:red">course</span>);
+const <span style="color:red">update</span> = (id, <span style="color:red">course</span>) =&gt; axios.put(`${API_URL}/${id}`, <span style="color:red">course</span>); // ← MỚI: PUT
+const <span style="color:red">deleteCourse</span> = (id) =&gt; axios.delete(`${API_URL}/${id}`);
+const <span style="color:red">getLevels</span> = () =&gt; axios.get(`${API_URL}/<span style="color:red">levels</span>`);
 
-export default { getAll, getById, create, update, deleteCourse, getLevels };
-```
+export default { getAll, getById, create, <span style="color:red">update</span>, <span style="color:red">deleteCourse</span>, <span style="color:red">getLevels</span> };</code></pre>
 
 ### File 2: `src/App.jsx`
 
-```jsx
-import { Routes, Route } from "react-router-dom";
-import CourseList from "./components/CourseList";
-import CourseDetail from "./components/CourseDetail";
+<pre><code>import { Routes, Route } from "react-router-dom";
+import <span style="color:red">CourseList</span> from "./components/<span style="color:red">CourseList</span>";
+import <span style="color:red">CourseDetail</span> from "./components/<span style="color:red">CourseDetail</span>";
 
 function App() {
   return (
-    <Routes>
-      <Route path="/" element={<CourseList />} />
-      <Route path="/course/:id" element={<CourseDetail />} />
-    </Routes>
+    &lt;Routes&gt;
+      &lt;Route path="/" element={&lt;<span style="color:red">CourseList</span> /&gt;} /&gt;
+      &lt;Route path="<span style="color:red">/course/:id</span>" element={&lt;<span style="color:red">CourseDetail</span> /&gt;} /&gt;
+    &lt;/Routes&gt;
   );
 }
 
-export default App;
-```
+export default App;</code></pre>
 
 ### File 3: `src/components/CourseList.jsx`
 
 > **Điểm khác so với BSM**: Có **Edit (PUT/Update)** + **CheckBox** + nút **Edit** trên table
 
-```jsx
-import { useState, useEffect } from "react";
+<pre><code>import { useState, useEffect } from &quot;react&quot;;
 import {
   Table,
   Button,
@@ -1693,361 +1650,349 @@ import {
   Container,
   Row,
   Col,
-} from "react-bootstrap";
-import { Link } from "react-router-dom";
-import CourseService from "../services/CourseService";
+} from &quot;react-bootstrap&quot;;
+import { Link } from &quot;react-router-dom&quot;;
+import <span style="color:red">CourseService</span> from &quot;../services/<span style="color:red">CourseService</span>&quot;;
 
-function CourseList() {
-  const [courses, setCourses] = useState([]);
-  const [levels, setLevels] = useState([]);
-  const [courseName, setCourseName] = useState("");
-  const [credits, setCredits] = useState("");
-  const [instructor, setInstructor] = useState("");
-  const [level, setLevel] = useState("");
-  const [active, setActive] = useState(true); // ← Mặc định TRUE
+function <span style="color:red">CourseList</span>() {
+  const [<span style="color:red">courses</span>, <span style="color:red">setCourses</span>] = useState([]);
+  const [<span style="color:red">levels</span>, <span style="color:red">setLevels</span>] = useState([]);
+  const [<span style="color:red">courseName</span>, <span style="color:red">setCourseName</span>] = useState(&quot;&quot;);
+  const [<span style="color:red">credits</span>, <span style="color:red">setCredits</span>] = useState(&quot;&quot;);
+  const [<span style="color:red">instructor</span>, <span style="color:red">setInstructor</span>] = useState(&quot;&quot;);
+  const [<span style="color:red">level</span>, <span style="color:red">setLevel</span>] = useState(&quot;&quot;);
+  const [<span style="color:red">active</span>, <span style="color:red">setActive</span>] = useState(true); 
 
-  // ★ MỚI: State cho Edit mode
-  const [editId, setEditId] = useState(null); // null = Add mode, có id = Edit mode
+  
+  const [<span style="color:red">editId</span>, <span style="color:red">setEditId</span>] = useState(null); // null = Add mode, có id = Edit mode
 
   const [showConfirm, setShowConfirm] = useState(false);
   const [deleteTarget, setDeleteTarget] = useState(null);
 
-  useEffect(() => {
-    loadCourses();
-    loadLevels();
+  useEffect(() =&gt; {
+    <span style="color:red">loadCourses</span>();
+    <span style="color:red">loadLevels</span>();
   }, []);
 
-  const loadCourses = () => {
-    CourseService.getAll().then((res) => setCourses(res.data));
+  const <span style="color:red">loadCourses</span> = () =&gt; {
+    <span style="color:red">CourseService</span>.getAll().then((res) =&gt; <span style="color:red">setCourses</span>(res.data));
   };
 
-  const loadLevels = () => {
-    CourseService.getLevels().then((res) => setLevels(res.data));
+  const <span style="color:red">loadLevels</span> = () =&gt; {
+    <span style="color:red">CourseService</span>.<span style="color:red">getLevels</span>().then((res) =&gt; <span style="color:red">setLevels</span>(res.data));
   };
 
-  // ★ Reset form về trạng thái ban đầu
-  const resetForm = () => {
-    setCourseName("");
-    setCredits("");
-    setInstructor("");
-    setLevel("");
-    setActive(true);
-    setEditId(null); // ← Về lại Add mode
+  
+  const <span style="color:red">resetForm</span> = () =&gt; {
+    <span style="color:red">setCourseName</span>(&quot;&quot;);
+    <span style="color:red">setCredits</span>(&quot;&quot;);
+    <span style="color:red">setInstructor</span>(&quot;&quot;);
+    <span style="color:red">setLevel</span>(&quot;&quot;);
+    <span style="color:red">setActive</span>(true);
+    <span style="color:red">setEditId</span>(null); 
   };
 
-  // ★ Xử lý cả Add và Update trong 1 hàm
-  const handleSubmit = () => {
+  
+  const <span style="color:red">handleSubmit</span> = () =&gt; {
     // Validation (giống nhau cho cả Add và Update)
-    if (!courseName.trim()) {
-      alert("Course Name is required");
+    if (!<span style="color:red">courseName</span>.trim()) {
+      alert(&quot;<span style="color:red">Course Name is required</span>&quot;);
       return;
     }
-    if (courseName.trim().length > 100) {
-      alert("Course Name must be at most 100 characters");
-      return;
-    }
-
-    if (!credits) {
-      alert("Credits is required");
-      return;
-    }
-    const creditsNum = Number(credits);
-    if (isNaN(creditsNum) || creditsNum < 1 || creditsNum > 10) {
-      alert("Credits must be between 1 and 10");
+    if (<span style="color:red">courseName</span>.trim().length &gt; 100) {
+      alert(&quot;<span style="color:red">Course Name must be at most 100 characters</span>&quot;);
       return;
     }
 
-    if (!instructor.trim()) {
-      alert("Instructor is required");
+    if (!<span style="color:red">credits</span>) {
+      alert(&quot;<span style="color:red">Credits is required</span>&quot;);
       return;
     }
-    if (instructor.trim().length > 80) {
-      alert("Instructor must be at most 80 characters");
-      return;
-    }
-
-    if (!level) {
-      alert("Level is required");
+    const <span style="color:red">creditsNum</span> = Number(<span style="color:red">credits</span>);
+    if (isNaN(<span style="color:red">creditsNum</span>) || <span style="color:red">creditsNum</span> &lt; 1 || <span style="color:red">creditsNum</span> &gt; 10) {
+      alert(&quot;<span style="color:red">Credits must be between 1 and 10</span>&quot;);
       return;
     }
 
-    const course = {
-      courseName: courseName.trim(),
-      credits: creditsNum,
-      instructor: instructor.trim(),
-      level,
-      active,
+    if (!<span style="color:red">instructor</span>.trim()) {
+      alert(&quot;<span style="color:red">Instructor is required</span>&quot;);
+      return;
+    }
+    if (<span style="color:red">instructor</span>.trim().length &gt; 80) {
+      alert(&quot;<span style="color:red">Instructor must be at most 80 characters</span>&quot;);
+      return;
+    }
+
+    if (!<span style="color:red">level</span>) {
+      alert(&quot;<span style="color:red">Level is required</span>&quot;);
+      return;
+    }
+
+    const <span style="color:red">course</span> = {
+      <span style="color:red">courseName</span>: <span style="color:red">courseName</span>.trim(),
+      <span style="color:red">credits</span>: <span style="color:red">creditsNum</span>,
+      <span style="color:red">instructor</span>: <span style="color:red">instructor</span>.trim(),
+      <span style="color:red">level</span>,
+      <span style="color:red">active</span>,
     };
 
-    if (editId) {
-      // ★ MODE: UPDATE (PUT)
-      CourseService.update(editId, course)
-        .then(() => {
-          alert("Updated Course successfully");
-          loadCourses();
-          resetForm(); // ← Reset form + về Add mode
+    if (<span style="color:red">editId</span>) {
+      
+      <span style="color:red">CourseService</span>.<span style="color:red">update</span>(<span style="color:red">editId</span>, course)
+        .then(() =&gt; {
+          alert(&quot;<span style="color:red">Updated Course successfully</span>&quot;);
+          <span style="color:red">loadCourses</span>();
+          resetForm(); 
         })
-        .catch((err) => {
-          alert(err.response?.data?.message || "Error updating course");
+        .catch((err) =&gt; {
+          alert(err.response?.data?.message || &quot;<span style="color:red">Error updating course</span>&quot;);
         });
     } else {
       // MODE: CREATE (POST)
-      CourseService.create(course)
-        .then(() => {
-          alert("Created new Course successfully");
-          loadCourses();
+      <span style="color:red">CourseService</span>.create(<span style="color:red">course</span>)
+        .then(() =&gt; {
+          alert(&quot;<span style="color:red">Created new Course successfully</span>&quot;);
+          <span style="color:red">loadCourses</span>();
           resetForm();
         })
-        .catch((err) => {
-          alert(err.response?.data?.message || "Error creating course");
+        .catch((err) =&gt; {
+          alert(err.response?.data?.message || &quot;<span style="color:red">Error creating course</span>&quot;);
         });
     }
   };
 
-  // ★ MỚI: Click Edit → điền data vào form
-  const handleEditClick = (course) => {
-    setEditId(course.id); // ← Chuyển sang Edit mode
-    setCourseName(course.courseName);
-    setCredits(String(course.credits)); // ← Số → String cho input
-    setInstructor(course.instructor);
-    setLevel(course.level);
-    setActive(course.active);
+  
+  const <span style="color:red">handleEditClick</span> = (course) =&gt; {
+    <span style="color:red">setEditId</span>(course.id); 
+    <span style="color:red">setCourseName</span>(course.<span style="color:red">courseName</span>);
+    <span style="color:red">setCredits</span>(String(course.<span style="color:red">credits</span>)); 
+    <span style="color:red">setInstructor</span>(course.<span style="color:red">instructor</span>);
+    <span style="color:red">setLevel</span>(course.<span style="color:red">level</span>);
+    <span style="color:red">setActive</span>(course.<span style="color:red">active</span>);
   };
 
-  const handleDeleteClick = (course) => {
+  const handleDeleteClick = (course) =&gt; {
     setDeleteTarget(course);
     setShowConfirm(true);
   };
 
-  const handleDeleteConfirm = () => {
-    CourseService.deleteCourse(deleteTarget.id).then(() => {
-      alert("Deleted successfully");
-      loadCourses();
+  const handleDeleteConfirm = () =&gt; {
+    <span style="color:red">CourseService</span>.<span style="color:red">deleteCourse</span>(deleteTarget.id).then(() =&gt; {
+      alert(&quot;Deleted successfully&quot;);
+      <span style="color:red">loadCourses</span>();
       setShowConfirm(false);
       setDeleteTarget(null);
     });
   };
 
-  const handleDeleteClose = () => {
+  const handleDeleteClose = () =&gt; {
     setShowConfirm(false);
     setDeleteTarget(null);
   };
 
   return (
-    <Container>
-      <h2 className="mt-3 mb-3">
-        <b>Course Management</b>
-      </h2>
-      <Form>
-        <Form.Group as={Row} className="mb-2">
-          <Form.Label column sm={2} className="text-end">
+    &lt;Container&gt;
+      &lt;h2 className=&quot;mt-3 mb-3&quot;&gt;
+        &lt;b&gt;<span style="color:red">Course Management</span>&lt;/b&gt;
+      &lt;/h2&gt;
+      &lt;Form&gt;
+        &lt;Form.Group as={Row} className=&quot;mb-2&quot;&gt;
+          &lt;Form.Label column sm={2} className=&quot;text-end&quot;&gt;
             Course Name:
-          </Form.Label>
-          <Col sm={10}>
-            <Form.Control
-              type="text"
-              value={courseName}
-              onChange={(e) => setCourseName(e.target.value)}
+          &lt;/Form.Label&gt;
+          &lt;Col sm={10}&gt;
+            &lt;Form.Control
+              type=&quot;text&quot;
+              value={<span style="color:red">courseName</span>}
+              onChange={(e) =&gt; <span style="color:red">setCourseName</span>(e.target.value)}
               maxLength={100}
-            />
-          </Col>
-        </Form.Group>
-        <Form.Group as={Row} className="mb-2">
-          <Form.Label column sm={2} className="text-end">
+            /&gt;
+          &lt;/Col&gt;
+        &lt;/Form.Group&gt;
+        &lt;Form.Group as={Row} className=&quot;mb-2&quot;&gt;
+          &lt;Form.Label column sm={2} className=&quot;text-end&quot;&gt;
             Credits:
-          </Form.Label>
-          <Col sm={10}>
-            <Form.Control
-              type="text"
-              value={credits}
-              onChange={(e) => setCredits(e.target.value)}
+          &lt;/Form.Label&gt;
+          &lt;Col sm={10}&gt;
+            &lt;Form.Control
+              type=&quot;text&quot;
+              value={<span style="color:red">credits</span>}
+              onChange={(e) =&gt; <span style="color:red">setCredits</span>(e.target.value)}
               maxLength={2}
-            />
-          </Col>
-        </Form.Group>
-        <Form.Group as={Row} className="mb-2">
-          <Form.Label column sm={2} className="text-end">
+            /&gt;
+          &lt;/Col&gt;
+        &lt;/Form.Group&gt;
+        &lt;Form.Group as={Row} className=&quot;mb-2&quot;&gt;
+          &lt;Form.Label column sm={2} className=&quot;text-end&quot;&gt;
             Instructor:
-          </Form.Label>
-          <Col sm={10}>
-            <Form.Control
-              type="text"
-              value={instructor}
-              onChange={(e) => setInstructor(e.target.value)}
+          &lt;/Form.Label&gt;
+          &lt;Col sm={10}&gt;
+            &lt;Form.Control
+              type=&quot;text&quot;
+              value={<span style="color:red">instructor</span>}
+              onChange={(e) =&gt; <span style="color:red">setInstructor</span>(e.target.value)}
               maxLength={80}
-            />
-          </Col>
-        </Form.Group>
-        <Form.Group as={Row} className="mb-2">
-          <Form.Label column sm={2} className="text-end">
+            /&gt;
+          &lt;/Col&gt;
+        &lt;/Form.Group&gt;
+        &lt;Form.Group as={Row} className=&quot;mb-2&quot;&gt;
+          &lt;Form.Label column sm={2} className=&quot;text-end&quot;&gt;
             Level:
-          </Form.Label>
-          <Col sm={10}>
-            <Form.Select
-              value={level}
-              onChange={(e) => setLevel(e.target.value)}
-            >
-              <option value="">-- Select --</option>
-              {levels.map((l) => (
-                <option key={l} value={l}>
+          &lt;/Form.Label&gt;
+          &lt;Col sm={10}&gt;
+            &lt;Form.Select
+              value={<span style="color:red">level</span>}
+              onChange={(e) =&gt; <span style="color:red">setLevel</span>(e.target.value)}
+            &gt;
+              &lt;option value=&quot;&quot;&gt;-- Select --&lt;/option&gt;
+              {<span style="color:red">levels</span>.map((l) =&gt; (
+                &lt;option key={l} value={l}&gt;
                   {l}
-                </option>
+                &lt;/option&gt;
               ))}
-            </Form.Select>
-          </Col>
-        </Form.Group>
+            &lt;/Form.Select&gt;
+          &lt;/Col&gt;
+        &lt;/Form.Group&gt;
 
         {/* CheckBox */}
-        <Form.Group as={Row} className="mb-2">
-          <Col sm={{ span: 10, offset: 2 }}>
-            <Form.Check
-              type="checkbox"
-              label="Active"
-              checked={active}
-              onChange={(e) => setActive(e.target.checked)}
-            />
-          </Col>
-        </Form.Group>
+        &lt;Form.Group as={Row} className=&quot;mb-2&quot;&gt;
+          &lt;Col sm={{ span: 10, offset: 2 }}&gt;
+            &lt;Form.Check
+              type=&quot;checkbox&quot;
+              label=&quot;Active&quot;
+              checked={<span style="color:red">active</span>}
+              onChange={(e) =&gt; <span style="color:red">setActive</span>(e.target.checked)}
+            /&gt;
+          &lt;/Col&gt;
+        &lt;/Form.Group&gt;
 
-        {/* ★ Nút thay đổi text theo mode */}
-        <Row className="mb-3">
-          <Col sm={{ span: 10, offset: 2 }}>
-            <Button variant="primary" onClick={handleSubmit}>
-              {editId ? "Update" : "Add New"} {/* ← Đổi text */}
-            </Button>
-            {/* ★ Nút Cancel chỉ hiện khi đang Edit */}
-            {editId && (
-              <Button variant="secondary" className="ms-2" onClick={resetForm}>
+        {/* ✅ Nút thay đổi text theo mode */}
+        &lt;Row className=&quot;mb-3&quot;&gt;
+          &lt;Col sm={{ span: 10, offset: 2 }}&gt;
+            &lt;Button variant=&quot;primary&quot; onClick={<span style="color:red">handleSubmit</span>}&gt;
+              {<span style="color:red">editId</span> ? &quot;Update&quot; : &quot;Add New&quot;} {/* ✅ Đổi text */}
+            &lt;/Button&gt;
+            {/* ✅ Nút Cancel chỉ hiện khi đang Edit */}
+            {<span style="color:red">editId</span> &amp;&amp; (
+              &lt;Button variant=&quot;secondary&quot; className=&quot;ms-2&quot; onClick={<span style="color:red">resetForm</span>}&gt;
                 Cancel
-              </Button>
+              &lt;/Button&gt;
             )}
-          </Col>
-        </Row>
-      </Form>
+          &lt;/Col&gt;
+        &lt;/Row&gt;
+      &lt;/Form&gt;
 
-      <h4>
-        <b>Course List</b>
-      </h4>
-      <Table bordered hover>
-        <thead>
-          <tr>
-            <th># No</th>
-            <th>Course Name</th>
-            <th>Level</th>
-            <th>Instructor</th>
-            <th>Credits</th>
-            <th>Active</th>
-            <th>Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {courses.map((course, index) => (
-            <tr key={course.id}>
-              <td>{String(index + 1).padStart(2, "0")}</td>
-              <td>{course.courseName}</td>
-              <td>{course.level}</td>
-              <td>{course.instructor}</td>
-              <td>{course.credits}</td>
-              <td>{course.active ? "Yes" : "No"}</td>
-              <td>
-                {/* ★ MỚI: Nút Edit */}
-                <Button
-                  variant="warning"
-                  size="sm"
-                  onClick={() => handleEditClick(course)}
-                >
+      &lt;h4&gt;
+        &lt;b&gt;<span style="color:red">Course List</span>&lt;/b&gt;
+      &lt;/h4&gt;
+      &lt;Table bordered hover&gt;
+        &lt;thead&gt;
+          &lt;tr&gt;
+            &lt;th&gt;# No&lt;/th&gt;
+            &lt;th&gt;<span style="color:red">Course Name</span>&lt;/th&gt;
+            &lt;th&gt;<span style="color:red">Level</span>&lt;/th&gt;
+            &lt;th&gt;<span style="color:red">Instructor</span>&lt;/th&gt;
+            &lt;th&gt;<span style="color:red">Credits</span>&lt;/th&gt;
+            &lt;th&gt;<span style="color:red">Active</span>&lt;/th&gt;
+            &lt;th&gt;Action&lt;/th&gt;
+          &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+          {<span style="color:red">courses</span>.map((course, index) =&gt; (
+            &lt;tr key={course.id}&gt;
+              &lt;td&gt;{String(index + 1).padStart(2, &quot;0&quot;)}&lt;/td&gt;
+              &lt;td&gt;{course.<span style="color:red">courseName</span>}&lt;/td&gt;
+              &lt;td&gt;{course.<span style="color:red">level</span>}&lt;/td&gt;
+              &lt;td&gt;{course.<span style="color:red">instructor</span>}&lt;/td&gt;
+              &lt;td&gt;{course.<span style="color:red">credits</span>}&lt;/td&gt;
+              &lt;td&gt;{course.<span style="color:red">active</span> ? &quot;Yes&quot; : &quot;No&quot;}&lt;/td&gt;
+              &lt;td&gt;
+                {/* ✅ MỚI: Nút Edit */}
+                &lt;Button
+                  variant=&quot;warning&quot;
+                  size=&quot;sm&quot;
+                  onClick={() =&gt; handleEditClick(course)}
+                &gt;
                   Edit
-                </Button>
-                {" | "}
-                <Button
-                  variant="danger"
-                  size="sm"
-                  onClick={() => handleDeleteClick(course)}
-                >
+                &lt;/Button&gt;
+                {&quot; | &quot;}
+                &lt;Button
+                  variant=&quot;danger&quot;
+                  size=&quot;sm&quot;
+                  onClick={() =&gt; handleDeleteClick(course)}
+                &gt;
                   Delete
-                </Button>
-                {" | "}
-                <Link to={`/course/${course.id}`}>View</Link>
-              </td>
-            </tr>
+                &lt;/Button&gt;
+                {&quot; | &quot;}
+                &lt;Link to={`<span style="color:red">/course/</span>${course.id}`}&gt;View&lt;/Link&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
           ))}
-        </tbody>
-      </Table>
+        &lt;/tbody&gt;
+      &lt;/Table&gt;
 
       {/* Modal xác nhận xóa */}
-      <Modal show={showConfirm} onHide={handleDeleteClose} centered>
-        <Modal.Header closeButton>
-          <Modal.Title>Confirmation</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          Are you sure you want to delete "{deleteTarget?.courseName}"?
-        </Modal.Body>
-        <Modal.Footer>
-          <Button variant="primary" onClick={handleDeleteConfirm}>
+      &lt;Modal show={showConfirm} onHide={handleDeleteClose} centered&gt;
+        &lt;Modal.Header closeButton&gt;
+          &lt;Modal.Title&gt;Confirmation&lt;/Modal.Title&gt;
+        &lt;/Modal.Header&gt;
+        &lt;Modal.Body&gt;
+          Are you sure you want to delete &quot;{deleteTarget?.<span style="color:red">courseName</span>}&quot;?
+        &lt;/Modal.Body&gt;
+        &lt;Modal.Footer&gt;
+          &lt;Button variant=&quot;primary&quot; onClick={handleDeleteConfirm}&gt;
             Yes
-          </Button>
-          <Button variant="secondary" onClick={handleDeleteClose}>
+          &lt;/Button&gt;
+          &lt;Button variant=&quot;secondary&quot; onClick={handleDeleteClose}&gt;
             Close
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    </Container>
+          &lt;/Button&gt;
+        &lt;/Modal.Footer&gt;
+      &lt;/Modal&gt;
+    &lt;/Container&gt;
   );
 }
 
-export default CourseList;
-```
+export default <span style="color:red">CourseList</span>;
+</code></pre>
 
 ### File 4: `src/components/CourseDetail.jsx`
 
-```jsx
-import { useState, useEffect } from "react";
+<pre><code>import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { Container, Button } from "react-bootstrap";
-import CourseService from "../services/CourseService";
+import <span style="color:red">CourseService</span> from "../services/<span style="color:red">CourseService</span>";
 
-function CourseDetail() {
+function <span style="color:red">CourseDetail</span>() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const [course, setCourse] = useState(null);
+  const [<span style="color:red">course, setCourse</span>] = useState(null);
 
-  useEffect(() => {
-    CourseService.getById(id).then((res) => setCourse(res.data));
+  useEffect(() =&gt; {
+    <span style="color:red">CourseService</span>.getById(id).then((res) =&gt; <span style="color:red">setCourse</span>(res.data));
   }, [id]);
 
-  if (!course) return <Container className="mt-3">Loading...</Container>;
+  if (!<span style="color:red">course</span>) return &lt;Container className="mt-3"&gt;Loading...&lt;/Container&gt;;
 
   return (
-    <Container className="mt-3">
-      <h2>
-        <b>VIEW DETAILS</b>
-      </h2>
-      <div className="mt-4 ms-4">
-        <p>
-          <b>Course Name:</b> {course.courseName}
-        </p>
-        <p>
-          <b>Instructor:</b> {course.instructor}
-        </p>
-        <p>
-          <b>Level:</b> {course.level}
-        </p>
-        <p>
-          <b>Credits:</b> {course.credits}
-        </p>
-        <p>
-          <b>Active:</b> {course.active ? "Yes" : "No"}
-        </p>
-      </div>
-      <Button variant="outline-primary" onClick={() => navigate("/")}>
+    &lt;Container className="mt-3"&gt;
+      &lt;h2&gt;
+        &lt;b&gt;VIEW DETAILS&lt;/b&gt;
+      &lt;/h2&gt;
+      &lt;div className="mt-4 ms-4"&gt;
+        &lt;p&gt;&lt;b&gt;<span style="color:red">Course Name</span>:&lt;/b&gt; {course.<span style="color:red">courseName</span>}&lt;/p&gt;
+        &lt;p&gt;&lt;b&gt;<span style="color:red">Instructor</span>:&lt;/b&gt; {course.<span style="color:red">instructor</span>}&lt;/p&gt;
+        &lt;p&gt;&lt;b&gt;<span style="color:red">Level</span>:&lt;/b&gt; {course.<span style="color:red">level</span>}&lt;/p&gt;
+        &lt;p&gt;&lt;b&gt;<span style="color:red">Credits</span>:&lt;/b&gt; {course.<span style="color:red">credits</span>}&lt;/p&gt;
+        &lt;p&gt;&lt;b&gt;<span style="color:red">Active</span>:&lt;/b&gt; {course.<span style="color:red">active</span> ? "Yes" : "No"}&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;Button variant="outline-primary" onClick={() =&gt; navigate("/")}&gt;
         Back
-      </Button>
-    </Container>
+      &lt;/Button&gt;
+    &lt;/Container&gt;
   );
 }
 
-export default CourseDetail;
-```
+export default <span style="color:red">CourseDetail</span>;</code></pre>
 
 ### Điểm cần lưu ý Đề 4:
 

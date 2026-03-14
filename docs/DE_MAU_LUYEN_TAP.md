@@ -1,6 +1,6 @@
 ﻿# Đề Mẫu Luyện Tập PE - SBA301 (React + Spring Boot)
 
-> 4 đề mẫu đầy đủ với lời giải chi tiết, mỗi đề có component khác nhau để luyện tập toàn diện.
+> 5 đề mẫu đầy đủ với lời giải chi tiết, mỗi đề có component khác nhau để luyện tập toàn diện.
 
 ---
 
@@ -12,6 +12,7 @@
 | [Đề 2](#đề-2-product-management-prm)  | Product Management (PRM)  | TextBox, Number, CheckBox, TextArea, DropList             | Có Checkbox + TextArea     |
 | [Đề 3](#đề-3-student-management-stm)  | Student Management (STM)  | TextBox, Date, Radio Button, DropList, Image              | Có Radio + Date + Image    |
 | [Đề 4](#đề-4-course-management-crm)   | Course Management (CRM)   | TextBox, Number, CheckBox (nhiều), DropList, PUT (Update) | Có Update + Multi-Checkbox |
+| [Đề 5](#đề-5-event-management-evm)    | Event Management (EVM)    | Full CRUD, Search, Sort, Pagination, đầy đủ control form  | Đề tổng hợp nâng cao       |
 
 ---
 
@@ -80,6 +81,8 @@ public class Employee {
 ---
 
 ## 1.2. Lời giải Đề 1
+
+> Quy ước: phần <span style="color:red">màu đỏ</span> là token có thể thay đổi theo đề được giao (entity, field, endpoint, route, label, alert, validation rule, text button).
 
 > ### 📝 BẢN ĐỒ DÒNG THAY ĐỔI SO VỚI BSM (Đề gốc Shop)
 >
@@ -275,7 +278,7 @@ function <span style="color:red">EmployeeList</span>() {
 
   const handleDeleteConfirm = () =&gt; {
     <span style="color:red">EmployeeService</span>.<span style="color:red">deleteEmployee</span>(deleteTarget.id).then(() =&gt; {
-      alert(&quot;Deleted successfully&quot;);
+      alert(&quot;
       <span style="color:red">loadEmployees</span>();
       setShowConfirm(false);
       setDeleteTarget(null);
@@ -341,7 +344,7 @@ function <span style="color:red">EmployeeList</span>() {
               value={<span style="color:red">department</span>}
               onChange={(e) =&gt; <span style="color:red">setDepartment</span>(e.target.value)}
             &gt;
-              &lt;option value=&quot;&quot;&gt;-- Select --&lt;/option&gt;
+              &lt;option value=&quot;&quot;&gt;/option&gt;
               {<span style="color:red">departments</span>.map((d) =&gt; (
                 &lt;option key={d} value={d}&gt;
                   {d}
@@ -390,7 +393,7 @@ function <span style="color:red">EmployeeList</span>() {
                   Delete
                 &lt;/Button&gt;
                 {&quot; | &quot;}
-                &lt;Link to={`<span style="color:red">/employee/</span>${emp.id}`}&gt;View&lt;/Link&gt;{&quot; &quot;}
+                &lt;Link to={`<span style="color:red">/employee/</span>${emp.id}`}&gt;<span style="color:red">View</span>&lt;/Link&gt;{&quot; &quot;}
                 {/* Đổi link: /shop/:id -&gt; <span style="color:red">/employee/</span>:id */}
               &lt;/td&gt;
             &lt;/tr&gt;
@@ -400,17 +403,17 @@ function <span style="color:red">EmployeeList</span>() {
 
       &lt;Modal show={showConfirm} onHide={handleDeleteClose} centered&gt;
         &lt;Modal.Header closeButton&gt;
-          &lt;Modal.Title&gt;Confirmation&lt;/Modal.Title&gt;
+          &lt;Modal.Title&gt;<span style="color:red">Confirmation</span>&lt;/Modal.Title&gt;
         &lt;/Modal.Header&gt;
         &lt;Modal.Body&gt;
           Are you sure you want to delete &quot;{deleteTarget?.<span style="color:red">fullName</span>}&quot;?
         &lt;/Modal.Body&gt;
         &lt;Modal.Footer&gt;
           &lt;Button variant=&quot;primary&quot; onClick={handleDeleteConfirm}&gt;
-            Yes
+            <span style="color:red">Yes</span>
           &lt;/Button&gt;
           &lt;Button variant=&quot;secondary&quot; onClick={handleDeleteClose}&gt;
-            Close
+            <span style="color:red">Close</span>
           &lt;/Button&gt;
         &lt;/Modal.Footer&gt;
       &lt;/Modal&gt;
@@ -437,12 +440,12 @@ function <span style="color:red">EmployeeDetail</span>() {
     <span style="color:red">EmployeeService</span>.getById(id).then((res) =&gt; <span style="color:red">setEmployee</span>(res.data)); // Đổi API gọi detail theo Employee
   }, [id]);
 
-  if (!<span style="color:red">employee</span>) return &lt;Container className="mt-3"&gt;Loading...&lt;/Container&gt;;
+  if (!<span style="color:red">employee</span>) return &lt;Container className="mt-3"&gt;<span style="color:red">Loading...</span>&lt;/Container&gt;;
 
   return (
     &lt;Container className="mt-3"&gt;
       &lt;h2&gt;
-        &lt;b&gt;VIEW DETAILS&lt;/b&gt;
+        &lt;b&gt;<span style="color:red">VIEW DETAILS</span>&lt;/b&gt;
       &lt;/h2&gt;
       &lt;div className="mt-4 ms-4"&gt;
         &lt;p&gt;
@@ -459,7 +462,7 @@ function <span style="color:red">EmployeeDetail</span>() {
         &lt;/p&gt;
       &lt;/div&gt;
       &lt;Button variant="outline-primary" onClick={() =&gt; navigate("/")}&gt;
-        Back
+        <span style="color:red">Back</span>
       &lt;/Button&gt;
     &lt;/Container&gt;
   );
@@ -539,6 +542,8 @@ public class Product {
 ---
 
 ## 2.2. Lời giải Đề 2
+
+> Quy ước: phần <span style="color:red">màu đỏ</span> là token có thể thay đổi theo đề được giao (entity, field, endpoint, route, label, alert, validation rule, text button).
 
 > ### 📝 BẢN ĐỒ DÒNG THAY ĐỔI SO VỚI BSM
 >
@@ -734,7 +739,7 @@ function <span style="color:red">ProductList</span>() {
 
   const handleDeleteConfirm = () =&gt; {
     <span style="color:red">ProductService</span>.<span style="color:red">deleteProduct</span>(deleteTarget.id).then(() =&gt; {
-      alert(&quot;Deleted successfully&quot;);
+      alert(&quot;
       <span style="color:red">loadProducts</span>();
       setShowConfirm(false);
       setDeleteTarget(null);
@@ -802,7 +807,7 @@ function <span style="color:red">ProductList</span>() {
           &lt;Col sm={{ span: 10, offset: 2 }}&gt;
             &lt;Form.Check
               type=&quot;checkbox&quot;
-              label=&quot;In Stock&quot;
+              label=&quot;<span style="color:red">In Stock</span>&quot;
               checked={<span style="color:red">inStock</span>} 
               onChange={(e) =&gt; <span style="color:red">setInStock</span>(e.target.checked)} 
             /&gt;
@@ -819,7 +824,7 @@ function <span style="color:red">ProductList</span>() {
               value={<span style="color:red">category</span>}
               onChange={(e) =&gt; <span style="color:red">setCategory</span>(e.target.value)}
             &gt;
-              &lt;option value=&quot;&quot;&gt;-- Select --&lt;/option&gt;
+              &lt;option value=&quot;&quot;&gt;<span style="color:red">-- Select --</span>&lt;/option&gt;
               {<span style="color:red">categories</span>.map((c) =&gt; (
                 &lt;option key={c} value={c}&gt;
                   {c}
@@ -859,7 +864,7 @@ function <span style="color:red">ProductList</span>() {
               &lt;td&gt;{product.<span style="color:red">productName</span>}&lt;/td&gt;
               &lt;td&gt;{product.<span style="color:red">category</span>}&lt;/td&gt;
               &lt;td&gt;{product.<span style="color:red">price</span>}&lt;/td&gt;
-              &lt;td&gt;{product.<span style="color:red">inStock</span> ? &quot;Yes&quot; : &quot;No&quot;}&lt;/td&gt;{&quot; &quot;}
+              &lt;td&gt;{product.<span style="color:red">inStock</span> ? &quot;<span style="color:red">Yes</span>&quot; : &quot;<span style="color:red">No</span>&quot;}&lt;/td&gt;{&quot; &quot;}
               {/* ✅ Boolean hiển thị */}
               &lt;td&gt;
                 &lt;Button
@@ -870,7 +875,7 @@ function <span style="color:red">ProductList</span>() {
                   Delete
                 &lt;/Button&gt;
                 {&quot; | &quot;}
-                &lt;Link to={`<span style="color:red">/product/</span>${product.id}`}&gt;View&lt;/Link&gt;
+                &lt;Link to={`<span style="color:red">/product/</span>${product.id}`}&gt;<span style="color:red">View</span>&lt;/Link&gt;
               &lt;/td&gt;
             &lt;/tr&gt;
           ))}
@@ -880,17 +885,17 @@ function <span style="color:red">ProductList</span>() {
       {/* Modal xác nhận xóa */}
       &lt;Modal show={showConfirm} onHide={handleDeleteClose} centered&gt;
         &lt;Modal.Header closeButton&gt;
-          &lt;Modal.Title&gt;Confirmation&lt;/Modal.Title&gt;
+          &lt;Modal.Title&gt;<span style="color:red">Confirmation</span>&lt;/Modal.Title&gt;
         &lt;/Modal.Header&gt;
         &lt;Modal.Body&gt;
           Are you sure you want to delete &quot;{deleteTarget?.<span style="color:red">productName</span>}&quot;?
         &lt;/Modal.Body&gt;
         &lt;Modal.Footer&gt;
           &lt;Button variant=&quot;primary&quot; onClick={handleDeleteConfirm}&gt;
-            Yes
+            <span style="color:red">Yes</span>
           &lt;/Button&gt;
           &lt;Button variant=&quot;secondary&quot; onClick={handleDeleteClose}&gt;
-            Close
+            <span style="color:red">Close</span>
           &lt;/Button&gt;
         &lt;/Modal.Footer&gt;
       &lt;/Modal&gt;
@@ -917,22 +922,22 @@ function <span style="color:red">ProductDetail</span>() {
     <span style="color:red">ProductService</span>.getById(id).then((res) =&gt; <span style="color:red">setProduct</span>(res.data));
   }, [id]);
 
-  if (!<span style="color:red">product</span>) return &lt;Container className="mt-3"&gt;Loading...&lt;/Container&gt;;
+  if (!<span style="color:red">product</span>) return &lt;Container className="mt-3"&gt;<span style="color:red">Loading...</span>&lt;/Container&gt;;
 
   return (
     &lt;Container className="mt-3"&gt;
       &lt;h2&gt;
-        &lt;b&gt;VIEW DETAILS&lt;/b&gt;
+        &lt;b&gt;<span style="color:red">VIEW DETAILS</span>&lt;/b&gt;
       &lt;/h2&gt;
       &lt;div className="mt-4 ms-4"&gt;
         &lt;p&gt;&lt;b&gt;<span style="color:red">Product Name</span>:&lt;/b&gt; {product.<span style="color:red">productName</span>}&lt;/p&gt;
         &lt;p&gt;&lt;b&gt;<span style="color:red">Category</span>:&lt;/b&gt; {product.<span style="color:red">category</span>}&lt;/p&gt;
         &lt;p&gt;&lt;b&gt;<span style="color:red">Price</span>:&lt;/b&gt; {product.<span style="color:red">price</span>}&lt;/p&gt;
-        &lt;p&gt;&lt;b&gt;<span style="color:red">In Stock</span>:&lt;/b&gt; {product.<span style="color:red">inStock</span> ? "Yes" : "No"}&lt;/p&gt;
+        &lt;p&gt;&lt;b&gt;<span style="color:red">In Stock</span>:&lt;/b&gt; {product.<span style="color:red">inStock</span> ? "<span style="color:red">Yes</span>" : "<span style="color:red">No</span>"}&lt;/p&gt;
         &lt;p&gt;&lt;b&gt;<span style="color:red">Description</span>:&lt;/b&gt; {product.<span style="color:red">description</span>}&lt;/p&gt;
       &lt;/div&gt;
       &lt;Button variant="outline-primary" onClick={() =&gt; navigate("/")}&gt;
-        Back
+        <span style="color:red">Back</span>
       &lt;/Button&gt;
     &lt;/Container&gt;
   );
@@ -1016,6 +1021,8 @@ public class Student {
 ---
 
 ## 3.2. Lời giải Đề 3
+
+> Quy ước: phần <span style="color:red">màu đỏ</span> là token có thể thay đổi theo đề được giao (entity, field, endpoint, route, label, alert, validation rule, text button).
 
 > ### 📝 BẢN ĐỒ DÒNG THAY ĐỔI SO VỚI BSM
 >
@@ -1219,7 +1226,7 @@ function <span style="color:red">StudentList</span>() {
 
   const handleDeleteConfirm = () =&gt; {
     <span style="color:red">StudentService</span>.<span style="color:red">deleteStudent</span>(deleteTarget.id).then(() =&gt; {
-      alert(&quot;Deleted successfully&quot;);
+      alert(&quot;
       <span style="color:red">loadStudents</span>();
       setShowConfirm(false);
       setDeleteTarget(null);
@@ -1303,7 +1310,7 @@ function <span style="color:red">StudentList</span>() {
               value={<span style="color:red">major</span>}
               onChange={(e) =&gt; <span style="color:red">setMajor</span>(e.target.value)}
             &gt;
-              &lt;option value=&quot;&quot;&gt;-- Select --&lt;/option&gt;
+              &lt;option value=&quot;&quot;&gt;/option&gt;
               {<span style="color:red">majors</span>.map((m) =&gt; (
                 &lt;option key={m} value={m}&gt;
                   {m}
@@ -1383,7 +1390,7 @@ function <span style="color:red">StudentList</span>() {
                   Delete
                 &lt;/Button&gt;
                 {&quot; | &quot;}
-                &lt;Link to={`<span style="color:red">/student/</span>${stu.id}`}&gt;View&lt;/Link&gt;
+                &lt;Link to={`<span style="color:red">/student/</span>${stu.id}`}&gt;<span style="color:red">View</span>&lt;/Link&gt;
               &lt;/td&gt;
             &lt;/tr&gt;
           ))}
@@ -1393,17 +1400,17 @@ function <span style="color:red">StudentList</span>() {
       {/* Modal */}
       &lt;Modal show={showConfirm} onHide={handleDeleteClose} centered&gt;
         &lt;Modal.Header closeButton&gt;
-          &lt;Modal.Title&gt;Confirmation&lt;/Modal.Title&gt;
+          &lt;Modal.Title&gt;<span style="color:red">Confirmation</span>&lt;/Modal.Title&gt;
         &lt;/Modal.Header&gt;
         &lt;Modal.Body&gt;
           Are you sure you want to delete &quot;{deleteTarget?.<span style="color:red">studentName</span>}&quot;?
         &lt;/Modal.Body&gt;
         &lt;Modal.Footer&gt;
           &lt;Button variant=&quot;primary&quot; onClick={handleDeleteConfirm}&gt;
-            Yes
+            <span style="color:red">Yes</span>
           &lt;/Button&gt;
           &lt;Button variant=&quot;secondary&quot; onClick={handleDeleteClose}&gt;
-            Close
+            <span style="color:red">Close</span>
           &lt;/Button&gt;
         &lt;/Modal.Footer&gt;
       &lt;/Modal&gt;
@@ -1430,12 +1437,12 @@ function <span style="color:red">StudentDetail</span>() {
     <span style="color:red">StudentService</span>.getById(id).then((res) =&gt; <span style="color:red">setStudent</span>(res.data));
   }, [id]);
 
-  if (!<span style="color:red">student</span>) return &lt;Container className="mt-3"&gt;Loading...&lt;/Container&gt;;
+  if (!<span style="color:red">student</span>) return &lt;Container className="mt-3"&gt;<span style="color:red">Loading...</span>&lt;/Container&gt;;
 
   return (
     &lt;Container className="mt-3"&gt;
       &lt;h2&gt;
-        &lt;b&gt;VIEW DETAILS&lt;/b&gt;
+        &lt;b&gt;<span style="color:red">VIEW DETAILS</span>&lt;/b&gt;
       &lt;/h2&gt;
       &lt;div className="mt-4 ms-4"&gt;
         {/* ★ Image trong detail */}
@@ -1458,7 +1465,7 @@ function <span style="color:red">StudentDetail</span>() {
         &lt;p&gt;&lt;b&gt;<span style="color:red">Birth Date</span>:&lt;/b&gt; {student.<span style="color:red">birthDate</span>}&lt;/p&gt;
       &lt;/div&gt;
       &lt;Button variant="outline-primary" onClick={() =&gt; navigate("/")}&gt;
-        Back
+        <span style="color:red">Back</span>
       &lt;/Button&gt;
     &lt;/Container&gt;
   );
@@ -1543,6 +1550,8 @@ public class Course {
 ---
 
 ## 4.2. Lời giải Đề 4
+
+> Quy ước: phần <span style="color:red">màu đỏ</span> là token có thể thay đổi theo đề được giao (entity, field, endpoint, route, label, alert, validation rule, text button).
 
 > ### 📝 BẢN ĐỒ DÒNG THAY ĐỔI SO VỚI BSM
 >
@@ -1778,7 +1787,7 @@ function <span style="color:red">CourseList</span>() {
 
   const handleDeleteConfirm = () =&gt; {
     <span style="color:red">CourseService</span>.<span style="color:red">deleteCourse</span>(deleteTarget.id).then(() =&gt; {
-      alert(&quot;Deleted successfully&quot;);
+      alert(&quot;
       <span style="color:red">loadCourses</span>();
       setShowConfirm(false);
       setDeleteTarget(null);
@@ -1844,7 +1853,7 @@ function <span style="color:red">CourseList</span>() {
               value={<span style="color:red">level</span>}
               onChange={(e) =&gt; <span style="color:red">setLevel</span>(e.target.value)}
             &gt;
-              &lt;option value=&quot;&quot;&gt;-- Select --&lt;/option&gt;
+              &lt;option value=&quot;&quot;&gt;/option&gt;
               {<span style="color:red">levels</span>.map((l) =&gt; (
                 &lt;option key={l} value={l}&gt;
                   {l}
@@ -1859,7 +1868,7 @@ function <span style="color:red">CourseList</span>() {
           &lt;Col sm={{ span: 10, offset: 2 }}&gt;
             &lt;Form.Check
               type=&quot;checkbox&quot;
-              label=&quot;Active&quot;
+              label=&quot;<span style="color:red">Active</span>&quot;
               checked={<span style="color:red">active</span>}
               onChange={(e) =&gt; <span style="color:red">setActive</span>(e.target.checked)}
             /&gt;
@@ -1905,7 +1914,7 @@ function <span style="color:red">CourseList</span>() {
               &lt;td&gt;{course.<span style="color:red">level</span>}&lt;/td&gt;
               &lt;td&gt;{course.<span style="color:red">instructor</span>}&lt;/td&gt;
               &lt;td&gt;{course.<span style="color:red">credits</span>}&lt;/td&gt;
-              &lt;td&gt;{course.<span style="color:red">active</span> ? &quot;Yes&quot; : &quot;No&quot;}&lt;/td&gt;
+              &lt;td&gt;{course.<span style="color:red">active</span> ? &quot;<span style="color:red">Yes</span>&quot; : &quot;<span style="color:red">No</span>&quot;}&lt;/td&gt;
               &lt;td&gt;
                 {/* ✅ MỚI: Nút Edit */}
                 &lt;Button
@@ -1924,7 +1933,7 @@ function <span style="color:red">CourseList</span>() {
                   Delete
                 &lt;/Button&gt;
                 {&quot; | &quot;}
-                &lt;Link to={`<span style="color:red">/course/</span>${course.id}`}&gt;View&lt;/Link&gt;
+                &lt;Link to={`<span style="color:red">/course/</span>${course.id}`}&gt;<span style="color:red">View</span>&lt;/Link&gt;
               &lt;/td&gt;
             &lt;/tr&gt;
           ))}
@@ -1934,17 +1943,17 @@ function <span style="color:red">CourseList</span>() {
       {/* Modal xác nhận xóa */}
       &lt;Modal show={showConfirm} onHide={handleDeleteClose} centered&gt;
         &lt;Modal.Header closeButton&gt;
-          &lt;Modal.Title&gt;Confirmation&lt;/Modal.Title&gt;
+          &lt;Modal.Title&gt;<span style="color:red">Confirmation</span>&lt;/Modal.Title&gt;
         &lt;/Modal.Header&gt;
         &lt;Modal.Body&gt;
           Are you sure you want to delete &quot;{deleteTarget?.<span style="color:red">courseName</span>}&quot;?
         &lt;/Modal.Body&gt;
         &lt;Modal.Footer&gt;
           &lt;Button variant=&quot;primary&quot; onClick={handleDeleteConfirm}&gt;
-            Yes
+            <span style="color:red">Yes</span>
           &lt;/Button&gt;
           &lt;Button variant=&quot;secondary&quot; onClick={handleDeleteClose}&gt;
-            Close
+            <span style="color:red">Close</span>
           &lt;/Button&gt;
         &lt;/Modal.Footer&gt;
       &lt;/Modal&gt;
@@ -1971,22 +1980,22 @@ function <span style="color:red">CourseDetail</span>() {
     <span style="color:red">CourseService</span>.getById(id).then((res) =&gt; <span style="color:red">setCourse</span>(res.data));
   }, [id]);
 
-  if (!<span style="color:red">course</span>) return &lt;Container className="mt-3"&gt;Loading...&lt;/Container&gt;;
+  if (!<span style="color:red">course</span>) return &lt;Container className="mt-3"&gt;<span style="color:red">Loading...</span>&lt;/Container&gt;;
 
   return (
     &lt;Container className="mt-3"&gt;
       &lt;h2&gt;
-        &lt;b&gt;VIEW DETAILS&lt;/b&gt;
+        &lt;b&gt;<span style="color:red">VIEW DETAILS</span>&lt;/b&gt;
       &lt;/h2&gt;
       &lt;div className="mt-4 ms-4"&gt;
         &lt;p&gt;&lt;b&gt;<span style="color:red">Course Name</span>:&lt;/b&gt; {course.<span style="color:red">courseName</span>}&lt;/p&gt;
         &lt;p&gt;&lt;b&gt;<span style="color:red">Instructor</span>:&lt;/b&gt; {course.<span style="color:red">instructor</span>}&lt;/p&gt;
         &lt;p&gt;&lt;b&gt;<span style="color:red">Level</span>:&lt;/b&gt; {course.<span style="color:red">level</span>}&lt;/p&gt;
         &lt;p&gt;&lt;b&gt;<span style="color:red">Credits</span>:&lt;/b&gt; {course.<span style="color:red">credits</span>}&lt;/p&gt;
-        &lt;p&gt;&lt;b&gt;<span style="color:red">Active</span>:&lt;/b&gt; {course.<span style="color:red">active</span> ? "Yes" : "No"}&lt;/p&gt;
+        &lt;p&gt;&lt;b&gt;<span style="color:red">Active</span>:&lt;/b&gt; {course.<span style="color:red">active</span> ? "<span style="color:red">Yes</span>" : "<span style="color:red">No</span>"}&lt;/p&gt;
       &lt;/div&gt;
       &lt;Button variant="outline-primary" onClick={() =&gt; navigate("/")}&gt;
-        Back
+        <span style="color:red">Back</span>
       &lt;/Button&gt;
     &lt;/Container&gt;
   );
@@ -2009,22 +2018,617 @@ export default <span style="color:red">CourseDetail</span>;</code></pre>
 
 ---
 
-# BẢNG SO SÁNH 4 ĐỀ
+# ĐỀ 5: EVENT MANAGEMENT (EVM)
 
-|                  | Đề 1 (EMP) | Đề 2 (PRM)     | Đề 3 (STM)   | Đề 4 (CRM) |
-| ---------------- | ---------- | -------------- | ------------ | ---------- |
-| **Entity**       | Employee   | Product        | Student      | Course     |
-| **TextBox**      | ✅         | ✅             | ✅           | ✅         |
-| **DropList**     | ✅         | ✅             | ✅           | ✅         |
-| **CheckBox**     | —          | ✅ inStock     | —            | ✅ active  |
-| **Radio**        | —          | —              | ✅ gender    | —          |
-| **TextArea**     | —          | ✅ description | —            | —          |
-| **Date**         | —          | —              | ✅ birthDate | —          |
-| **Image**        | —          | —              | ✅ avatarUrl | —          |
-| **PUT (Update)** | —          | —              | —            | ✅         |
-| **Nút Edit**     | —          | —              | —            | ✅         |
-| **Cancel**       | —          | —              | —            | ✅         |
-| **Độ khó**       | ⭐         | ⭐⭐           | ⭐⭐         | ⭐⭐⭐     |
+## 5.1. Yêu cầu đề bài
+
+### Entity: Event
+
+```java
+@Entity
+@Table(name = "events")
+public class Event {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, length = 120, unique = true)
+    private String title;
+
+    @Column(nullable = false, length = 1000)
+    private String description;
+
+    @Column(nullable = false)
+    private String category;
+
+    @Column(nullable = false)
+    private String eventDate;   // yyyy-MM-dd
+
+    @Column(nullable = false)
+    private int seats;
+
+    @Column(nullable = false)
+    private boolean online;
+
+    @Column(nullable = false)
+    private String level;       // Beginner / Intermediate / Advanced
+
+    @Column(nullable = false, length = 255)
+    private String bannerUrl;
+}
+```
+
+### API Endpoints:
+
+| Method | URL                                                 | Mô tả                               |
+| ------ | --------------------------------------------------- | ----------------------------------- |
+| GET    | `/api/events`                                       | Lấy tất cả                          |
+| GET    | `/api/events/{id}`                                  | Lấy theo id                         |
+| POST   | `/api/events`                                       | Tạo mới                             |
+| PUT    | `/api/events/{id}`                                  | Cập nhật                            |
+| DELETE | `/api/events/{id}`                                  | Xóa                                 |
+| GET    | `/api/events/categories`                            | Lấy danh sách category (DropList)   |
+| GET    | `/api/events/search?keyword=...`                    | Tìm theo title/description/category |
+| GET    | `/api/events/search?keyword=...&sort=eventDate,asc` | Tìm + sắp xếp                       |
+
+### Validation:
+
+- Title: bắt buộc, tối đa 120 ký tự, không trùng
+- Description: bắt buộc, tối đa 1000 ký tự (TextArea)
+- Category: bắt buộc, chọn từ dropdown
+- Event Date: bắt buộc, không được nhỏ hơn ngày hiện tại
+- Seats: bắt buộc, số nguyên > 0 và <= 5000
+- Online: checkbox (boolean)
+- Level: bắt buộc, chọn 1 trong 3 radio options
+- Banner URL: bắt buộc, đúng định dạng URL
+
+### Màn hình và component cần có:
+
+**Screen 1 - List + Form:**
+
+- Form controls đầy đủ: TextBox, Number, Date, TextArea, DropList, CheckBox, Radio, Image preview
+- Button: Add New / Update / Cancel
+- Search bar: keyword + sort + Search + Clear
+- Table: # No, Banner, Title, Category, Date, Seats, Online, Level, Action
+- Pagination: Prev / Next + page info
+
+**Screen 2 - Confirmation:**
+
+- Modal xác nhận xóa
+
+**Screen 3 - Detail Screen:**
+
+- Hiển thị toàn bộ field
+- Button: Back
+
+---
+
+## 5.2. Hướng dẫn giải từng bước theo thứ tự
+
+### Bước 1: Tạo skeleton file và routing
+
+1. Tạo `src/services/EventService.js`, `src/components/EventList.jsx`, `src/components/EventDetail.jsx`.
+2. Cập nhật `src/App.jsx`:
+   - Route list: `/`
+   - Route detail: `/event/:id`
+
+### Bước 2: Viết EventService đầy đủ CRUD + Search
+
+Trong `EventService.js`, tạo các hàm theo đúng thứ tự để dễ test:
+
+1. `getAll()`
+2. `getById(id)`
+3. `create(event)`
+4. `update(id, event)`
+5. `deleteEvent(id)`
+6. `getCategories()`
+7. `search(keyword, sort, page, size)`
+
+Gợi ý service:
+
+```javascript
+import axios from "axios";
+
+const API_URL = "http://localhost:8080/api/events";
+
+const getAll = () => axios.get(API_URL);
+const getById = (id) => axios.get(`${API_URL}/${id}`);
+const create = (event) => axios.post(API_URL, event);
+const update = (id, event) => axios.put(`${API_URL}/${id}`, event);
+const deleteEvent = (id) => axios.delete(`${API_URL}/${id}`);
+const getCategories = () => axios.get(`${API_URL}/categories`);
+const search = (keyword, sort, page = 0, size = 5) =>
+  axios.get(`${API_URL}/search`, { params: { keyword, sort, page, size } });
+
+export default {
+  getAll,
+  getById,
+  create,
+  update,
+  deleteEvent,
+  getCategories,
+  search,
+};
+```
+
+### Bước 3: Khai báo state theo nhóm trong EventList
+
+1. Data state: `events`, `categories`, `totalPages`, `page`.
+2. Form state: `title`, `description`, `category`, `eventDate`, `seats`, `online`, `level`, `bannerUrl`.
+3. Search state: `keyword`, `sort`.
+4. Control state: `editId`, `showConfirm`, `deleteTarget`.
+
+### Bước 4: Tạo useEffect để load dữ liệu ban đầu
+
+1. `loadEvents()` để lấy danh sách trang đầu.
+2. `loadCategories()` để đổ dropdown.
+3. Gọi cả 2 trong `useEffect(..., [])`.
+
+### Bước 5: Dựng form đầy đủ tất cả control
+
+1. TextBox: `title`, `bannerUrl`
+2. TextArea: `description`
+3. DropList: `category`
+4. Date: `eventDate`
+5. Number: `seats`
+6. CheckBox: `online`
+7. Radio group: `level` (Beginner/Intermediate/Advanced)
+8. Ảnh preview: render `<img src={bannerUrl} ... />` khi URL hợp lệ
+
+### Bước 6: Viết validation theo đúng thứ tự ngắn gọn
+
+Thứ tự đề xuất để debug nhanh:
+
+1. Required checks
+2. Length checks
+3. Number range checks
+4. Date checks
+5. URL format checks
+
+Nếu fail: `alert("...")` và `return` ngay.
+
+### Bước 7: Viết handleSubmit cho cả Add và Update
+
+1. Validate
+2. Tạo object `eventPayload`
+3. Nếu `editId` có giá trị: gọi `update(editId, eventPayload)`
+4. Nếu không: gọi `create(eventPayload)`
+5. Sau thành công: alert + reload list + reset form
+
+### Bước 8: Viết resetForm
+
+Reset tất cả field + `setEditId(null)` để thoát mode edit.
+
+### Bước 9: Viết chức năng Edit
+
+`handleEditClick(event)`:
+
+1. set `editId`
+2. đổ dữ liệu event vào toàn bộ state form
+3. với `seats` có thể dùng `String(event.seats)` để bind vào input number
+
+### Bước 10: Viết chức năng Delete qua modal xác nhận
+
+1. `handleDeleteClick(event)` mở modal
+2. `handleDeleteConfirm()` gọi `deleteEvent(deleteTarget.id)`
+3. Thành công: alert + reload + đóng modal + clear target
+
+### Bước 11: Viết Search + Sort
+
+1. `handleSearch()` gọi `search(keyword, sort, 0, size)`
+2. Reset page về 0 khi search mới
+3. `handleClearSearch()` xoá keyword + sort, load lại list gốc
+
+### Bước 12: Viết Pagination
+
+1. Nút Prev: disable khi `page === 0`
+2. Nút Next: disable khi `page + 1 >= totalPages`
+3. Khi đổi page: gọi lại API search hoặc getAll tương ứng trạng thái hiện tại
+
+### Bước 13: Dựng bảng danh sách và action
+
+Trong mỗi row:
+
+1. Edit button
+2. Delete button
+3. View link `/event/${event.id}`
+
+### Bước 14: Viết EventDetail
+
+1. Lấy `id` từ `useParams`
+2. Gọi `EventService.getById(id)`
+3. Hiển thị toàn bộ field (kèm ảnh banner)
+4. Nút Back quay về list
+
+### Bước 15: Checklist chạy thử cuối cùng
+
+1. Add thành công 1 bản ghi
+2. Edit thành công 1 bản ghi
+3. Delete thành công 1 bản ghi
+4. Search theo title chạy đúng
+5. Sort theo date chạy đúng
+6. Pagination qua lại đúng
+7. Detail hiển thị đúng toàn bộ field
+8. Không có warning/error trong console
+
+---
+
+## 5.3. Lời giải chi tiết Đề 5 (đánh dấu đỏ phần cần thay đổi)
+
+> Quy ước mới: phần <span style="color:red">màu đỏ</span> là token có thể thay đổi theo đề được giao (entity, field, endpoint, route, label, alert, rule, sort key, page size...).
+
+### File 1: `src/services/EventService.js`
+
+<pre><code>import axios from "axios";
+
+const API_URL = <span style="color:red">"http://localhost:8080/api/events"</span>;
+
+const getAll = () =&gt; axios.get(API_URL);
+const getById = (id) =&gt; axios.get(`${API_URL}/${id}`);
+const create = (<span style="color:red">event</span>) =&gt; axios.post(API_URL, <span style="color:red">event</span>);
+const <span style="color:red">update</span> = (id, <span style="color:red">event</span>) =&gt; axios.put(`${API_URL}/${id}`, <span style="color:red">event</span>);
+const <span style="color:red">deleteEvent</span> = (id) =&gt; axios.delete(`${API_URL}/${id}`);
+const <span style="color:red">getCategories</span> = () =&gt; axios.get(`${API_URL}/<span style="color:red">categories</span>`);
+const <span style="color:red">search</span> = (keyword, sort, page = 0, size = <span style="color:red">5</span>) =&gt;
+  axios.get(`${API_URL}/<span style="color:red">search</span>`, {
+    params: { <span style="color:red">keyword</span>, <span style="color:red">sort</span>, <span style="color:red">page</span>, <span style="color:red">size</span> },
+  });
+
+export default {
+  getAll,
+  getById,
+  create,
+  <span style="color:red">update</span>,
+  <span style="color:red">deleteEvent</span>,
+  <span style="color:red">getCategories</span>,
+  <span style="color:red">search</span>,
+};</code></pre>
+
+### File 2: `src/App.jsx`
+
+<pre><code>import { Routes, Route } from "react-router-dom";
+import <span style="color:red">EventList</span> from "./components/<span style="color:red">EventList</span>";
+import <span style="color:red">EventDetail</span> from "./components/<span style="color:red">EventDetail</span>";
+
+function App() {
+  return (
+    &lt;Routes&gt;
+      &lt;Route path="/" element={&lt;<span style="color:red">EventList</span> /&gt;} /&gt;
+      &lt;Route path="<span style="color:red">/event/:id</span>" element={&lt;<span style="color:red">EventDetail</span> /&gt;} /&gt;
+    &lt;/Routes&gt;
+  );
+}
+
+export default App;</code></pre>
+
+### File 3: `src/components/EventList.jsx`
+
+<pre><code>import { useEffect, useState } from "react";
+import { Button, Col, Container, Form, Modal, Row, Table } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import <span style="color:red">EventService</span> from "../services/<span style="color:red">EventService</span>";
+
+function <span style="color:red">EventList</span>() {
+  const [<span style="color:red">events</span>, <span style="color:red">setEvents</span>] = useState([]);
+  const [<span style="color:red">categories</span>, <span style="color:red">setCategories</span>] = useState([]);
+
+  const [<span style="color:red">title</span>, <span style="color:red">setTitle</span>] = useState("");
+  const [<span style="color:red">description</span>, <span style="color:red">setDescription</span>] = useState("");
+  const [<span style="color:red">category</span>, <span style="color:red">setCategory</span>] = useState("");
+  const [<span style="color:red">eventDate</span>, <span style="color:red">setEventDate</span>] = useState("");
+  const [<span style="color:red">seats</span>, <span style="color:red">setSeats</span>] = useState("");
+  const [<span style="color:red">online</span>, <span style="color:red">setOnline</span>] = useState(false);
+  const [<span style="color:red">level</span>, <span style="color:red">setLevel</span>] = useState("");
+  const [<span style="color:red">bannerUrl</span>, <span style="color:red">setBannerUrl</span>] = useState("");
+
+  const [<span style="color:red">keyword</span>, <span style="color:red">setKeyword</span>] = useState("");
+  const [<span style="color:red">sort</span>, <span style="color:red">setSort</span>] = useState("<span style="color:red">eventDate,asc</span>");
+  const [<span style="color:red">page</span>, <span style="color:red">setPage</span>] = useState(0);
+  const [<span style="color:red">size</span>] = useState(<span style="color:red">5</span>);
+  const [<span style="color:red">totalPages</span>, <span style="color:red">setTotalPages</span>] = useState(1);
+
+  const [<span style="color:red">editId</span>, <span style="color:red">setEditId</span>] = useState(null);
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [deleteTarget, setDeleteTarget] = useState(null);
+
+  useEffect(() =&gt; {
+    <span style="color:red">loadCategories</span>();
+    <span style="color:red">loadEvents</span>(0, keyword, sort);
+  }, []);
+
+  const <span style="color:red">loadCategories</span> = () =&gt; {
+    <span style="color:red">EventService.getCategories</span>().then((res) =&gt; <span style="color:red">setCategories</span>(res.data));
+  };
+
+  const <span style="color:red">loadEvents</span> = (nextPage = 0, nextKeyword = "", nextSort = "<span style="color:red">eventDate,asc</span>") =&gt; {
+    <span style="color:red">EventService.search</span>(nextKeyword, nextSort, nextPage, size).then((res) =&gt; {
+      <span style="color:red">setEvents</span>(res.data.content ?? []);
+      <span style="color:red">setPage</span>(res.data.number ?? 0);
+      <span style="color:red">setTotalPages</span>(res.data.totalPages || 1);
+    });
+  };
+
+  const <span style="color:red">resetForm</span> = () =&gt; {
+    setTitle("");
+    setDescription("");
+    setCategory("");
+    setEventDate("");
+    setSeats("");
+    setOnline(false);
+    setLevel("");
+    setBannerUrl("");
+    <span style="color:red">setEditId</span>(null);
+  };
+
+  const validate = () =&gt; {
+    if (!title.trim()) return alert("<span style="color:red">Title is required</span>"), false;
+    if (title.length &gt; <span style="color:red">120</span>) return alert("<span style="color:red">Title max length is 120</span>"), false;
+    if (!description.trim()) return alert("<span style="color:red">Description is required</span>"), false;
+    if (description.length &gt; <span style="color:red">1000</span>) return alert("<span style="color:red">Description max length is 1000</span>"), false;
+    if (!category) return alert("<span style="color:red">Category is required</span>"), false;
+    if (!eventDate) return alert("<span style="color:red">Event date is required</span>"), false;
+    if (new Date(eventDate) &lt; new Date(new Date().toDateString())) return alert("<span style="color:red">Event date must be today or in the future</span>"), false;
+    const seatsNum = Number(seats);
+    if (Number.isNaN(seatsNum) || seatsNum &lt;= <span style="color:red">0</span> || seatsNum &gt; <span style="color:red">5000</span>) return alert("<span style="color:red">Seats must be &gt; 0 and &lt;= 5000</span>"), false;
+    if (!level) return alert("<span style="color:red">Level is required</span>"), false;
+    if (!bannerUrl.trim()) return alert("<span style="color:red">Banner URL is required</span>"), false;
+    if (!bannerUrl.startsWith("<span style="color:red">http://</span>") &amp;&amp; !bannerUrl.startsWith("<span style="color:red">https://</span>")) return alert("<span style="color:red">Banner URL must start with http:// or https://</span>"), false;
+    return true;
+  };
+
+  const <span style="color:red">handleSubmit</span> = () =&gt; {
+    if (!validate()) return;
+
+    const eventPayload = {
+      title: title.trim(),
+      description: description.trim(),
+      category,
+      eventDate,
+      seats: Number(seats),
+      online,
+      level,
+      bannerUrl: bannerUrl.trim(),
+    };
+
+    const request = <span style="color:red">editId</span>
+      ? <span style="color:red">EventService.update(editId, eventPayload)</span>
+      : <span style="color:red">EventService.create(eventPayload)</span>;
+
+    request.then(() =&gt; {
+      alert(<span style="color:red">editId ? "Updated successfully" : "Created successfully"</span>);
+      <span style="color:red">loadEvents</span>(page, keyword, sort);
+      <span style="color:red">resetForm</span>();
+    });
+  };
+
+  const <span style="color:red">handleEditClick</span> = (event) =&gt; {
+    <span style="color:red">setEditId</span>(event.id);
+    setTitle(event.title);
+    setDescription(event.description);
+    setCategory(event.category);
+    setEventDate(event.eventDate);
+    setSeats(String(event.seats));
+    setOnline(event.online);
+    setLevel(event.level);
+    setBannerUrl(event.bannerUrl);
+  };
+
+  const handleDeleteClick = (event) =&gt; {
+    setDeleteTarget(event);
+    setShowConfirm(true);
+  };
+
+  const handleDeleteConfirm = () =&gt; {
+    <span style="color:red">EventService.deleteEvent</span>(deleteTarget.id).then(() =&gt; {
+      alert("<span style="color:red">Deleted successfully</span>");
+      <span style="color:red">loadEvents</span>(page, keyword, sort);
+      setShowConfirm(false);
+      setDeleteTarget(null);
+    });
+  };
+
+  const <span style="color:red">handleSearch</span> = () =&gt; {
+    <span style="color:red">loadEvents</span>(0, keyword, sort);
+  };
+
+  const <span style="color:red">handleClearSearch</span> = () =&gt; {
+    setKeyword("");
+    setSort("<span style="color:red">eventDate,asc</span>");
+    <span style="color:red">loadEvents</span>(0, "", "<span style="color:red">eventDate,asc</span>");
+  };
+
+  const <span style="color:red">handlePrev</span> = () =&gt; {
+    if (page &gt; 0) <span style="color:red">loadEvents</span>(page - 1, keyword, sort);
+  };
+
+  const <span style="color:red">handleNext</span> = () =&gt; {
+    if (page + 1 &lt; totalPages) <span style="color:red">loadEvents</span>(page + 1, keyword, sort);
+  };
+
+  return (
+    &lt;Container&gt;
+      &lt;h2 className="mt-3 mb-3"&gt;&lt;b&gt;<span style="color:red">Event Management</span>&lt;/b&gt;&lt;/h2&gt;
+
+      &lt;Form className="mb-4"&gt;
+        {/* Search + sort */}
+        &lt;Row className="mb-3"&gt;
+          &lt;Col md={5}&gt;
+            &lt;Form.Control value={keyword} onChange={(e) =&gt; setKeyword(e.target.value)} placeholder="<span style="color:red">Search by title/description/category</span>" /&gt;
+          &lt;/Col&gt;
+          &lt;Col md={3}&gt;
+            &lt;Form.Select value={sort} onChange={(e) =&gt; setSort(e.target.value)}&gt;
+              &lt;option value="<span style="color:red">eventDate,asc</span>"&gt;<span style="color:red">Date ASC</span>&lt;/option&gt;
+              &lt;option value="<span style="color:red">eventDate,desc</span>"&gt;<span style="color:red">Date DESC</span>&lt;/option&gt;
+              &lt;option value="<span style="color:red">title,asc</span>"&gt;<span style="color:red">Title A-Z</span>&lt;/option&gt;
+              &lt;option value="<span style="color:red">title,desc</span>"&gt;<span style="color:red">Title Z-A</span>&lt;/option&gt;
+            &lt;/Form.Select&gt;
+          &lt;/Col&gt;
+          &lt;Col md={4}&gt;
+            &lt;Button variant="primary" onClick={handleSearch}&gt;<span style="color:red">Search</span>&lt;/Button&gt;{" "}
+            &lt;Button variant="secondary" onClick={handleClearSearch}&gt;<span style="color:red">Clear</span>&lt;/Button&gt;
+          &lt;/Col&gt;
+        &lt;/Row&gt;
+
+        {/* Form fields */}
+        &lt;Form.Control className="mb-2" value={title} onChange={(e) =&gt; setTitle(e.target.value)} placeholder="<span style="color:red">Title</span>" /&gt;
+        &lt;Form.Control className="mb-2" as="textarea" rows={<span style="color:red">3</span>} value={description} onChange={(e) =&gt; setDescription(e.target.value)} placeholder="<span style="color:red">Description</span>" /&gt;
+        &lt;Row className="mb-2"&gt;
+          &lt;Col&gt;
+            &lt;Form.Select value={category} onChange={(e) =&gt; setCategory(e.target.value)}&gt;
+              &lt;option value=""&gt;<span style="color:red">-- Select Category --</span>&lt;/option&gt;
+              {categories.map((c) =&gt; (&lt;option key={c} value={c}&gt;{c}&lt;/option&gt;))}
+            &lt;/Form.Select&gt;
+          &lt;/Col&gt;
+          &lt;Col&gt;&lt;Form.Control type="date" value={eventDate} onChange={(e) =&gt; setEventDate(e.target.value)} /&gt;&lt;/Col&gt;
+          &lt;Col&gt;&lt;Form.Control type="number" value={seats} onChange={(e) =&gt; setSeats(e.target.value)} placeholder="<span style="color:red">Seats</span>" /&gt;&lt;/Col&gt;
+        &lt;/Row&gt;
+
+        &lt;Row className="mb-2"&gt;
+          &lt;Col md={4}&gt;
+            &lt;Form.Check type="checkbox" label="<span style="color:red">Online Event</span>" checked={online} onChange={(e) =&gt; setOnline(e.target.checked)} /&gt;
+          &lt;/Col&gt;
+          &lt;Col md={8}&gt;
+            &lt;Form.Check inline type="radio" label="<span style="color:red">Beginner</span>" name="<span style="color:red">level</span>" value="<span style="color:red">Beginner</span>" checked={level === "<span style="color:red">Beginner</span>"} onChange={(e) =&gt; setLevel(e.target.value)} /&gt;
+            &lt;Form.Check inline type="radio" label="<span style="color:red">Intermediate</span>" name="<span style="color:red">level</span>" value="<span style="color:red">Intermediate</span>" checked={level === "<span style="color:red">Intermediate</span>"} onChange={(e) =&gt; setLevel(e.target.value)} /&gt;
+            &lt;Form.Check inline type="radio" label="<span style="color:red">Advanced</span>" name="<span style="color:red">level</span>" value="<span style="color:red">Advanced</span>" checked={level === "<span style="color:red">Advanced</span>"} onChange={(e) =&gt; setLevel(e.target.value)} /&gt;
+          &lt;/Col&gt;
+        &lt;/Row&gt;
+
+        &lt;Form.Control className="mb-2" value={bannerUrl} onChange={(e) =&gt; setBannerUrl(e.target.value)} placeholder="<span style="color:red">Banner URL</span>" /&gt;
+        {bannerUrl &amp;&amp; (&lt;img src={bannerUrl} alt="<span style="color:red">preview</span>" style={{ width: <span style="color:red">180</span>, height: <span style="color:red">100</span>, objectFit: "<span style="color:red">cover</span>" }} /&gt;)}
+
+        &lt;div className="mt-3"&gt;
+          &lt;Button variant="primary" onClick={handleSubmit}&gt;{<span style="color:red">editId ? "Update" : "Add New"</span>}&lt;/Button&gt;{" "}
+          {<span style="color:red">editId</span> &amp;&amp; (&lt;Button variant="secondary" onClick={resetForm}&gt;<span style="color:red">Cancel</span>&lt;/Button&gt;)}
+        &lt;/div&gt;
+      &lt;/Form&gt;
+
+      &lt;h4&gt;&lt;b&gt;<span style="color:red">Event List</span>&lt;/b&gt;&lt;/h4&gt;
+      &lt;Table bordered hover&gt;
+        &lt;thead&gt;
+          &lt;tr&gt;
+            &lt;th&gt;# No&lt;/th&gt;
+            &lt;th&gt;<span style="color:red">Banner</span>&lt;/th&gt;
+            &lt;th&gt;<span style="color:red">Title</span>&lt;/th&gt;
+            &lt;th&gt;<span style="color:red">Category</span>&lt;/th&gt;
+            &lt;th&gt;<span style="color:red">Date</span>&lt;/th&gt;
+            &lt;th&gt;<span style="color:red">Seats</span>&lt;/th&gt;
+            &lt;th&gt;<span style="color:red">Online</span>&lt;/th&gt;
+            &lt;th&gt;<span style="color:red">Level</span>&lt;/th&gt;
+            &lt;th&gt;Action&lt;/th&gt;
+          &lt;/tr&gt;
+        &lt;/thead&gt;
+        &lt;tbody&gt;
+          {events.map((event, index) =&gt; (
+            &lt;tr key={event.id}&gt;
+              &lt;td&gt;{String(page * size + index + 1).padStart(2, "0")}&lt;/td&gt;
+              &lt;td&gt;&lt;img src={event.bannerUrl} alt={event.title} style={{ width: <span style="color:red">90</span>, height: <span style="color:red">50</span>, objectFit: "<span style="color:red">cover</span>" }} /&gt;&lt;/td&gt;
+              &lt;td&gt;{event.title}&lt;/td&gt;
+              &lt;td&gt;{event.category}&lt;/td&gt;
+              &lt;td&gt;{event.eventDate}&lt;/td&gt;
+              &lt;td&gt;{event.seats}&lt;/td&gt;
+              &lt;td&gt;{event.online ? "<span style="color:red">Yes</span>" : "<span style="color:red">No</span>"}&lt;/td&gt;
+              &lt;td&gt;{event.level}&lt;/td&gt;
+              &lt;td&gt;
+                &lt;Button variant="warning" size="sm" onClick={() =&gt; handleEditClick(event)}&gt;<span style="color:red">Edit</span>&lt;/Button&gt;{" | "}
+                &lt;Button variant="danger" size="sm" onClick={() =&gt; handleDeleteClick(event)}&gt;<span style="color:red">Delete</span>&lt;/Button&gt;{" | "}
+                &lt;Link to={`<span style="color:red">/event</span>/${event.id}`}&gt;<span style="color:red">View</span>&lt;/Link&gt;
+              &lt;/td&gt;
+            &lt;/tr&gt;
+          ))}
+        &lt;/tbody&gt;
+      &lt;/Table&gt;
+
+      &lt;div className="d-flex gap-2 mb-3"&gt;
+        &lt;Button onClick={handlePrev} disabled={page === 0}&gt;<span style="color:red">Prev</span>&lt;/Button&gt;
+        &lt;Button onClick={handleNext} disabled={page + 1 &gt;= totalPages}&gt;<span style="color:red">Next</span>&lt;/Button&gt;
+        &lt;span className="align-self-center"&gt;<span style="color:red">Page</span> {page + 1} / {totalPages}&lt;/span&gt;
+      &lt;/div&gt;
+
+      &lt;Modal show={showConfirm} onHide={() =&gt; setShowConfirm(false)} centered&gt;
+        &lt;Modal.Header closeButton&gt;
+          &lt;Modal.Title&gt;<span style="color:red">Confirmation</span>&lt;/Modal.Title&gt;
+        &lt;/Modal.Header&gt;
+        &lt;Modal.Body&gt;<span style="color:red">Are you sure you want to delete</span> "{deleteTarget?.title}"?&lt;/Modal.Body&gt;
+        &lt;Modal.Footer&gt;
+          &lt;Button variant="primary" onClick={handleDeleteConfirm}&gt;<span style="color:red">Yes</span>&lt;/Button&gt;
+          &lt;Button variant="secondary" onClick={() =&gt; setShowConfirm(false)}&gt;<span style="color:red">Close</span>&lt;/Button&gt;
+        &lt;/Modal.Footer&gt;
+      &lt;/Modal&gt;
+    &lt;/Container&gt;
+  );
+}
+
+export default <span style="color:red">EventList</span>;</code></pre>
+
+### File 4: `src/components/EventDetail.jsx`
+
+<pre><code>import { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { Button, Container } from "react-bootstrap";
+import <span style="color:red">EventService</span> from "../services/<span style="color:red">EventService</span>";
+
+function <span style="color:red">EventDetail</span>() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [<span style="color:red">event</span>, <span style="color:red">setEvent</span>] = useState(null);
+
+  useEffect(() =&gt; {
+    <span style="color:red">EventService</span>.getById(id).then((res) =&gt; <span style="color:red">setEvent</span>(res.data));
+  }, [id]);
+
+  if (!<span style="color:red">event</span>) return &lt;Container className="mt-3"&gt;<span style="color:red">Loading...</span>&lt;/Container&gt;;
+
+  return (
+    &lt;Container className="mt-3"&gt;
+      &lt;h2&gt;&lt;b&gt;<span style="color:red">VIEW DETAILS</span>&lt;/b&gt;&lt;/h2&gt;
+      &lt;div className="mt-4 ms-4"&gt;
+        &lt;p&gt;&lt;b&gt;<span style="color:red">Title</span>:&lt;/b&gt; {event.title}&lt;/p&gt;
+        &lt;p&gt;&lt;b&gt;<span style="color:red">Description</span>:&lt;/b&gt; {event.description}&lt;/p&gt;
+        &lt;p&gt;&lt;b&gt;<span style="color:red">Category</span>:&lt;/b&gt; {event.category}&lt;/p&gt;
+        &lt;p&gt;&lt;b&gt;<span style="color:red">Date</span>:&lt;/b&gt; {event.eventDate}&lt;/p&gt;
+        &lt;p&gt;&lt;b&gt;<span style="color:red">Seats</span>:&lt;/b&gt; {event.seats}&lt;/p&gt;
+        &lt;p&gt;&lt;b&gt;<span style="color:red">Online</span>:&lt;/b&gt; {event.online ? "<span style="color:red">Yes</span>" : "<span style="color:red">No</span>"}&lt;/p&gt;
+        &lt;p&gt;&lt;b&gt;<span style="color:red">Level</span>:&lt;/b&gt; {event.level}&lt;/p&gt;
+        &lt;p&gt;&lt;img src={event.bannerUrl} alt={event.title} style={{ width: <span style="color:red">260</span>, height: <span style="color:red">140</span>, objectFit: "<span style="color:red">cover</span>" }} /&gt;&lt;/p&gt;
+      &lt;/div&gt;
+      &lt;Button variant="outline-primary" onClick={() =&gt; navigate("/")}&gt;<span style="color:red">Back</span>&lt;/Button&gt;
+    &lt;/Container&gt;
+  );
+}
+
+export default <span style="color:red">EventDetail</span>;</code></pre>
+
+### Điểm mấu chốt Đề 5 cần nhớ:
+
+- Khác Đề 1-4: có thêm `search + sort + pagination` trong cùng màn hình list.
+- `GET /api/events/search` trả `Page`, nên phải đọc `res.data.content`, `res.data.number`, `res.data.totalPages`.
+- Nút submit dùng chung cho Add/Update qua `editId`.
+- Sau create/update/delete luôn gọi lại `loadEvents(page, keyword, sort)` để đồng bộ bảng.
+- Trước khi nộp: test cả 2 nhánh có keyword và không keyword.
+- Khi đổi sang đề khác, ưu tiên thay toàn bộ token màu đỏ trước, sau đó mới test logic.
+
+---
+
+# BẢNG SO SÁNH 5 ĐỀ
+
+|                  | Đề 1 (EMP) | Đề 2 (PRM)     | Đề 3 (STM)   | Đề 4 (CRM) | Đề 5 (EVM)     |
+| ---------------- | ---------- | -------------- | ------------ | ---------- | -------------- |
+| **Entity**       | Employee   | Product        | Student      | Course     | Event          |
+| **TextBox**      | ✅         | ✅             | ✅           | ✅         | ✅             |
+| **DropList**     | ✅         | ✅             | ✅           | ✅         | ✅             |
+| **CheckBox**     | —          | ✅ inStock     | —            | ✅ active  | ✅ online      |
+| **Radio**        | —          | —              | ✅ gender    | —          | ✅ level       |
+| **TextArea**     | —          | ✅ description | —            | —          | ✅ description |
+| **Date**         | —          | —              | ✅ birthDate | —          | ✅ eventDate   |
+| **Image**        | —          | —              | ✅ avatarUrl | —          | ✅ bannerUrl   |
+| **Search**       | —          | —              | —            | —          | ✅ keyword     |
+| **Sort**         | —          | —              | —            | —          | ✅ date/name   |
+| **Pagination**   | —          | —              | —            | —          | ✅             |
+| **PUT (Update)** | —          | —              | —            | ✅         | ✅             |
+| **Nút Edit**     | —          | —              | —            | ✅         | ✅             |
+| **Cancel**       | —          | —              | —            | ✅         | ✅             |
+| **Độ khó**       | ⭐         | ⭐⭐           | ⭐⭐         | ⭐⭐⭐     | ⭐⭐⭐⭐       |
 
 ---
 
